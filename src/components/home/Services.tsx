@@ -33,46 +33,47 @@ const Services = () => {
   }, []);
 
   return (
-    <section id="services" className="py-16 md:py-24 bg-secondary/30">
+    <section id="services" className="py-16 md:py-24 bg-[#D3E4FD]/30">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-12 animate-on-scroll" ref={titleRef}>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Our Premium Pet Services
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-display" style={{textDecoration: 'underline wavy #F97316'}}>
+            Our Awesome Pet Services! 🐾
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-balance">
-            We offer professional grooming and veterinary services to keep your beloved pets looking their best and feeling their healthiest.
+          <p className="text-muted-foreground max-w-2xl mx-auto text-balance bg-white p-4 rounded-lg shadow-md inline-block">
+            We offer professional grooming and veterinary services to keep your beloved pets 
+            looking their best and feeling their healthiest! 🐶❤️
           </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          <div className="animate-on-scroll" ref={card1Ref}>
+          <div className="animate-on-scroll rotate-[-1deg]" ref={card1Ref}>
             <AppointmentCard
               title="Pet Grooming"
               description="Professional grooming services tailored to your pet's needs and breed."
               icon={<Scissors />}
               color="primary"
               features={[
-                "Full-service bath and haircut",
-                "Nail trimming and ear cleaning",
-                "Teeth brushing and gland expression",
-                "Breed-specific styling",
-                "De-shedding treatments"
+                "Full-service bath and haircut ✂️",
+                "Nail trimming and ear cleaning 💅",
+                "Teeth brushing and gland expression 🦷",
+                "Breed-specific styling 🎨",
+                "De-shedding treatments 🧹"
               ]}
             />
           </div>
           
-          <div className="animate-on-scroll delay-200" ref={card2Ref}>
+          <div className="animate-on-scroll delay-200 rotate-[1deg]" ref={card2Ref}>
             <AppointmentCard
               title="Veterinary Care"
               description="Comprehensive veterinary services for preventive care and treatments."
               icon={<Stethoscope />}
               color="accent"
               features={[
-                "Wellness examinations",
-                "Vaccinations and preventive care",
-                "Diagnostics and treatments",
-                "Dental care and surgery",
-                "Nutrition counseling"
+                "Wellness examinations 🩺",
+                "Vaccinations and preventive care 💉",
+                "Diagnostics and treatments 🔬",
+                "Dental care and surgery 🦷",
+                "Nutrition counseling 🥗"
               ]}
             />
           </div>

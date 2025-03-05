@@ -56,7 +56,7 @@ const Features = () => {
     {
       icon: <Bell />,
       title: 'Health Reminders',
-      description: 'Get notified when your pet needs vaccinations or check-ups.'
+      description: "Get notified when your pet needs vaccinations or check-ups."
     },
     {
       icon: <Search />,
@@ -66,19 +66,20 @@ const Features = () => {
   ];
 
   return (
-    <section id="features" className="py-16 md:py-24">
+    <section id="features" className="py-16 md:py-24 bg-[#FEF7CD]/30">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col md:flex-row gap-12 items-center">
           <div className="w-full md:w-1/2">
             <div className="animate-on-scroll" ref={titleRef}>
-              <span className="text-sm font-medium text-primary uppercase tracking-wider">
-                Amazing Features
+              <span className="text-sm font-medium text-[#8B5CF6] uppercase tracking-wider px-3 py-1 bg-[#E5DEFF] rounded-full inline-block mb-2">
+                Cool Features!
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-4">
-                Why Pet Owners <span className="gradient-text">Love FurCare</span>
+              <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-4 font-display">
+                Why Pet Owners <span className="text-[#F97316]">Love FurCare</span> 
+                <span className="text-sm ml-2">♥</span>
               </h2>
-              <p className="text-muted-foreground mb-8 text-balance">
-                Our platform offers a seamless experience for managing all your pet care needs in one place, saving you time and providing peace of mind.
+              <p className="text-muted-foreground mb-8 text-balance max-w-md border-l-4 border-[#FEC6A1] pl-4 italic">
+                Our platform helps you take care of all your pet's needs in one place! Super convenient and easy to use.
               </p>
             </div>
             
@@ -92,6 +93,7 @@ const Features = () => {
                   icon={feature.icon}
                   title={feature.title}
                   description={feature.description}
+                  className={index % 3 === 0 ? "bg-[#F2FCE2]" : index % 3 === 1 ? "bg-[#FFDEE2]" : "bg-[#D3E4FD]"}
                 />
               ))}
             </div>
@@ -99,7 +101,7 @@ const Features = () => {
           
           <div className="w-full md:w-1/2 relative">
             <div 
-              className="absolute -z-10 w-full h-full scale-110 blur-3xl bg-gradient-to-br from-primary/10 to-accent/10 rounded-full"
+              className="absolute -z-10 w-full h-full scale-110 blur-3xl bg-gradient-to-br from-[#D946EF]/10 to-[#0EA5E9]/10 rounded-full"
               aria-hidden="true"
             ></div>
             
@@ -107,12 +109,13 @@ const Features = () => {
               ref={imageRef}
               src="https://images.unsplash.com/photo-1582562124811-c09040d0a901"
               alt="Happy pet with owner at a grooming appointment"
-              className="w-full h-auto rounded-2xl shadow-xl animate-on-scroll"
+              className="w-full h-auto rounded-2xl shadow-xl animate-on-scroll rotate-1"
+              style={{border: '3px solid white'}}
             />
             
-            <div className="absolute -bottom-8 -left-8 glass-effect rounded-xl p-4 shadow-subtle hidden md:block animate-float">
+            <div className="absolute -bottom-8 -left-8 bg-white rounded-xl p-4 shadow-subtle hidden md:block animate-float rotate-[-1deg]" style={{border: '2px dashed #FEC6A1'}}>
               <div className="flex items-center space-x-3">
-                <div className="h-16 w-16 rounded-full overflow-hidden border-2 border-white">
+                <div className="h-16 w-16 rounded-full overflow-hidden border-2 border-[#E5DEFF]">
                   <img 
                     src="https://images.unsplash.com/photo-1472396961693-142e6e269027" 
                     alt="Happy customer" 
@@ -124,7 +127,7 @@ const Features = () => {
                     {[1, 2, 3, 4, 5].map((star) => (
                       <svg 
                         key={star} 
-                        className="w-4 h-4 text-yellow-400" 
+                        className="w-4 h-4 text-[#F97316]" 
                         fill="currentColor" 
                         viewBox="0 0 20 20"
                       >
@@ -132,7 +135,9 @@ const Features = () => {
                       </svg>
                     ))}
                   </div>
-                  <p className="text-xs font-medium text-balance">"The best pet care service I've ever used! So convenient."</p>
+                  <p className="text-xs font-medium text-balance">
+                    "The best pet care service I've ever used! So convenient."
+                  </p>
                 </div>
               </div>
             </div>

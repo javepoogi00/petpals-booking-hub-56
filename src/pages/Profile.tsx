@@ -49,7 +49,7 @@ const Profile = () => {
           <div className="bg-white rounded-xl shadow-subtle border border-pink-100 hover:shadow-lg transition-shadow duration-300">
             {/* Header */}
             <div className="bg-gradient-to-r from-coquette-400 to-coquette-500 py-6 px-6 text-white rounded-t-xl relative overflow-hidden">
-              <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"20\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cpath d=\"M0 0h4v4H0V0zm8 0h4v4H8V0zm8 0h4v4h-4V0zM4 4h4v4H4V4zm8 0h4v4h-4V4zm8 0h4v4h-4V4zM0 8h4v4H0V8zm8 0h4v4H8V8zm8 0h4v4h-4V8zM4 12h4v4H4v-4zm8 0h4v4h-4v-4zm8 0h4v4h-4v-4z\" fill=\"%23FFFFFF\" fill-opacity=\"0.05\" fill-rule=\"evenodd\"/%3E%3C/svg%3E')] opacity-50"></div>
+              <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgMGg0djRIMFYwem04IDBoNHY0SDhWMHptOCAwaDF2NEgxNlYwek00IDRoNHY0SDRWNHptOCAwaDF2NGgtNFY0em04IDBoNHY0aC00VjR6TTAgOGg0djRIMFY4em04IDBoNHY0SDhWOHptOCAwaDF2NGgtNFY4ek00IDEyaDR2NEg0di00em04IDBoNHY0aC00di00em04IDBoNHY0aC00di00eiIgZmlsbD0iI0ZGRkZGRiIgZmlsbC1vcGFjaXR5PSIwLjA1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=')] opacity-50"></div>
               <div className="relative">
                 <h1 className="text-2xl font-semibold flex items-center gap-2">
                   My Profile <Sparkles className="w-5 h-5 animate-pulse" />
@@ -211,7 +211,7 @@ const Profile = () => {
           {/* Account settings card */}
           <div className="mt-8 bg-white rounded-xl shadow-subtle border border-pink-100 overflow-hidden hover:shadow-lg transition-shadow duration-300">
             <div className="bg-gradient-to-r from-coquette-400 to-coquette-500 py-4 px-6 text-white rounded-t-xl relative overflow-hidden">
-              <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"20\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cpath d=\"M0 0h4v4H0V0zm8 0h4v4H8V0zm8 0h4v4h-4V0zM4 4h4v4H4V4zm8 0h4v4h-4V4zm8 0h4v4h-4V4zM0 8h4v4H0V8zm8 0h4v4H8V8zm8 0h4v4h-4V8zM4 12h4v4H4v-4zm8 0h4v4h-4v-4zm8 0h4v4h-4v-4z\" fill=\"%23FFFFFF\" fill-opacity=\"0.05\" fill-rule=\"evenodd\"/%3E%3C/svg%3E')] opacity-50"></div>
+              <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgMGg0djRIMFYwem04IDBoNHY0SDhWMHptOCAwaDF2NEgxNlYwek00IDRoNHY0SDRWNHptOCAwaDF2NGgtNFY0em04IDBoNHY0aC00VjR6TTAgOGg0djRIMFY4em04IDBoNHY0SDhWOHptOCAwaDF2NGgtNFY4ek00IDEyaDR2NEg0di00em04IDBoNHY0aC00di00em04IDBoNHY0aC00di00eiIgZmlsbD0iI0ZGRkZGRiIgZmlsbC1vcGFjaXR5PSIwLjA1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=')] opacity-50"></div>
               <div className="relative">
                 <h2 className="text-xl font-semibold flex items-center gap-2">
                   Account Settings <Sparkles className="w-4 h-4 animate-pulse" />

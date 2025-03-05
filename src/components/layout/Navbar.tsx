@@ -65,9 +65,9 @@ const Navbar = () => {
               <Button 
                 variant="primary"
                 size="sm"
-                icon={<Calendar className="w-4 h-4" />}
               >
                 Register
+                <Calendar className="ml-2 w-4 h-4" />
               </Button>
             </Link>
           </div>
@@ -113,9 +113,9 @@ const Navbar = () => {
                     variant="primary" 
                     size="sm" 
                     className="w-full justify-center"
-                    icon={<Calendar className="w-4 h-4" />}
                   >
                     Register
+                    <Calendar className="ml-2 w-4 h-4" />
                   </Button>
                 </Link>
               </div>

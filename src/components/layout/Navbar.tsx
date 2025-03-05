@@ -1,7 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Calendar, PawPrint } from 'lucide-react';
-import Button from '../ui/Button';
+import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -17,7 +18,7 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '#' },
+    { name: 'Home', href: '/' },
     { name: 'Services', href: '#services' },
     { name: 'Features', href: '#features' },
     { name: 'Testimonials', href: '#testimonials' },
@@ -35,8 +36,12 @@ const Navbar = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <PawPrint className="h-8 w-8 text-primary" />
-            <span className="text-xl font-display font-bold">FurCare</span>
+            <Link to="/">
+              <PawPrint className="h-8 w-8 text-primary" />
+            </Link>
+            <Link to="/">
+              <span className="text-xl font-display font-bold">FurCare</span>
+            </Link>
           </div>
           
           {/* Desktop Navigation */}
@@ -54,19 +59,23 @@ const Navbar = () => {
           
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button 
-              variant="outline"
-              size="sm"
-            >
-              Login
-            </Button>
-            <Button 
-              variant="primary"
-              size="sm"
-              icon={<Calendar className="w-4 h-4" />}
-            >
-              Book Now
-            </Button>
+            <Link to="/login">
+              <Button 
+                variant="outline"
+                size="sm"
+              >
+                Login
+              </Button>
+            </Link>
+            <Link to="/register">
+              <Button 
+                variant="primary"
+                size="sm"
+                icon={<Calendar className="w-4 h-4" />}
+              >
+                Register
+              </Button>
+            </Link>
           </div>
           
           {/* Mobile Menu Button */}
@@ -100,17 +109,21 @@ const Navbar = () => {
                 </a>
               ))}
               <div className="flex flex-col space-y-3 pt-3 border-t">
-                <Button variant="outline" size="sm" className="w-full justify-center">
-                  Login
-                </Button>
-                <Button 
-                  variant="primary" 
-                  size="sm" 
-                  className="w-full justify-center"
-                  icon={<Calendar className="w-4 h-4" />}
-                >
-                  Book Now
-                </Button>
+                <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button variant="outline" size="sm" className="w-full justify-center">
+                    Login
+                  </Button>
+                </Link>
+                <Link to="/register" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button 
+                    variant="primary" 
+                    size="sm" 
+                    className="w-full justify-center"
+                    icon={<Calendar className="w-4 h-4" />}
+                  >
+                    Register
+                  </Button>
+                </Link>
               </div>
             </nav>
           </div>

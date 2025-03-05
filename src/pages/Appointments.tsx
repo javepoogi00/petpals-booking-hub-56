@@ -1,232 +1,283 @@
-
 import React, { useState } from 'react';
-import Navbar from '@/components/layout/Navbar';
+import { Calendar, Clock, User, MapPin, Plus, Search, Filter, ChevronDown, ChevronUp, Check, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { 
-  Search, Calendar, Filter, PlusCircle, 
-  PawPrint, User, Clock, CheckCircle, AlertCircle 
-} from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Label } from '@/components/ui/label';
+import { useToast } from '@/hooks/use-toast';
+import { Logo } from '@/components/ui/logo';
 
 const Appointments = () => {
-  const [filter, setFilter] = useState('upcoming');
-  
-  // Mock appointment data
-  const appointments = [
-    { 
-      id: 1, 
-      pet: 'Max', 
-      petType: 'Dog, Golden Retriever', 
-      service: 'Annual Checkup', 
-      date: 'Aug 15, 2023', 
-      time: '2:30 PM', 
-      doctor: 'Dr. Sarah Johnson',
-      status: 'confirmed' 
+  const [appointments, setAppointments] = useState([
+    {
+      id: 1,
+      petName: 'Max',
+      petType: 'Dog',
+      service: 'Vaccination',
+      date: '2023-06-15',
+      time: '10:00 AM',
+      veterinarian: 'Dr. Smith',
+      location: 'Main Clinic',
+      status: 'completed'
     },
-    { 
-      id: 2, 
-      pet: 'Bella', 
-      petType: 'Cat, Siamese', 
-      service: 'Vaccination', 
-      date: 'Aug 16, 2023', 
-      time: '10:00 AM', 
-      doctor: 'Dr. Robert Smith',
-      status: 'pending' 
+    {
+      id: 2,
+      petName: 'Bella',
+      petType: 'Cat',
+      service: 'Check-up',
+      date: '2023-06-20',
+      time: '2:30 PM',
+      veterinarian: 'Dr. Johnson',
+      location: 'Main Clinic',
+      status: 'upcoming'
     },
-    { 
-      id: 3, 
-      pet: 'Charlie', 
-      petType: 'Dog, Beagle', 
-      service: 'Dental Cleaning', 
-      date: 'Aug 18, 2023', 
-      time: '3:15 PM', 
-      doctor: 'Dr. Sarah Johnson',
-      status: 'confirmed' 
-    },
-    { 
-      id: 4, 
-      pet: 'Luna', 
-      petType: 'Cat, Maine Coon', 
-      service: 'Neutering', 
-      date: 'Jul 29, 2023', 
-      time: '9:00 AM', 
-      doctor: 'Dr. Michael Chen',
-      status: 'completed' 
-    },
-    { 
-      id: 5, 
-      pet: 'Max', 
-      petType: 'Dog, Golden Retriever', 
-      service: 'Skin Condition', 
-      date: 'Jul 15, 2023', 
-      time: '11:45 AM', 
-      doctor: 'Dr. Sarah Johnson',
-      status: 'completed' 
-    },
-  ];
-  
-  // Filter appointments based on status
-  const filteredAppointments = appointments.filter(appointment => {
-    if (filter === 'upcoming') {
-      return appointment.status === 'confirmed' || appointment.status === 'pending';
-    } else if (filter === 'completed') {
-      return appointment.status === 'completed';
+    {
+      id: 3,
+      petName: 'Charlie',
+      petType: 'Dog',
+      service: 'Grooming',
+      date: '2023-06-25',
+      time: '11:15 AM',
+      veterinarian: 'Dr. Williams',
+      location: 'Downtown Branch',
+      status: 'upcoming'
     }
-    return true; // 'all' filter
-  });
+  ]);
+
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const { toast } = useToast();
+
+  const handleCancelAppointment = (id: number) => {
+    // In a real app, this would make an API call
+    setAppointments(appointments.map(app => 
+      app.id === id ? { ...app, status: 'cancelled' } : app
+    ));
+    
+    toast({
+      title: "Appointment Cancelled",
+      description: "Your appointment has been successfully cancelled.",
+    });
+  };
+
+  const handleConfirmAppointment = (id: number) => {
+    // In a real app, this would make an API call
+    setAppointments(appointments.map(app => 
+      app.id === id ? { ...app, status: 'confirmed' } : app
+    ));
+    
+    toast({
+      title: "Appointment Confirmed",
+      description: "Your appointment has been confirmed.",
+    });
+  };
+
+  const getStatusColor = (status: string) => {
+    switch(status) {
+      case 'completed':
+        return 'bg-green-100 text-green-800';
+      case 'upcoming':
+        return 'bg-blue-100 text-blue-800';
+      case 'cancelled':
+        return 'bg-red-100 text-red-800';
+      case 'confirmed':
+        return 'bg-purple-100 text-purple-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
+    }
+  };
+
+  const filteredAppointments = appointments.filter(app => 
+    app.petName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    app.service.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    app.veterinarian.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-coquette-50 to-coquette-100 paw-pattern">
-      <Navbar />
-      <div className="container mx-auto pt-28 pb-16 px-4">
-        <div className="bg-white rounded-xl shadow-subtle border border-coquette-100 p-6">
-          {/* Header */}
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-            <div>
-              <h1 className="text-2xl font-bold font-display">Appointments</h1>
-              <p className="text-muted-foreground">Manage and schedule your pet's appointments</p>
-            </div>
-            <Link to="/appointments/new">
-              <Button className="bg-coquette-500 hover:bg-coquette-600">
-                <PlusCircle className="mr-2 h-4 w-4" />
-                New Appointment
-              </Button>
-            </Link>
+    <div className="min-h-screen bg-gradient-to-b from-coquette-50 to-white">
+      <header className="bg-white shadow-sm border-b border-coquette-100">
+        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+          <div className="flex items-center">
+            <Logo size="sm" />
+            <h1 className="ml-4 text-xl font-semibold text-foreground">My Appointments</h1>
           </div>
-          
-          {/* Filters and Search */}
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-            <div className="flex items-center space-x-2">
+          <Button 
+            variant="primary"
+            size="sm"
+            icon={<Plus className="w-4 h-4" />}
+          >
+            New Appointment
+          </Button>
+        </div>
+      </header>
+
+      <main className="container mx-auto px-4 py-8">
+        <div className="bg-white rounded-xl shadow-subtle border border-coquette-100 overflow-hidden">
+          <div className="p-4 border-b border-coquette-100 flex flex-col sm:flex-row justify-between gap-4">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search appointments..."
+                className="pl-9 border-coquette-200 focus-visible:ring-coquette-500"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+            <div>
               <Button 
-                variant={filter === 'upcoming' ? 'primary' : 'outline'} 
+                variant="outline"
                 size="sm"
-                onClick={() => setFilter('upcoming')}
+                className="w-full sm:w-auto"
+                onClick={() => setFilterOpen(!filterOpen)}
               >
-                Upcoming
-              </Button>
-              <Button 
-                variant={filter === 'completed' ? 'primary' : 'outline'} 
-                size="sm"
-                onClick={() => setFilter('completed')}
-              >
-                Completed
-              </Button>
-              <Button 
-                variant={filter === 'all' ? 'primary' : 'outline'} 
-                size="sm"
-                onClick={() => setFilter('all')}
-              >
-                All
+                <Filter className="mr-2 h-4 w-4" />
+                Filter
+                {filterOpen ? (
+                  <ChevronUp className="ml-2 h-4 w-4" />
+                ) : (
+                  <ChevronDown className="ml-2 h-4 w-4" />
+                )}
               </Button>
             </div>
-            
-            <div className="flex items-center space-x-2 w-full md:w-auto">
-              <div className="relative w-full md:w-auto">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          </div>
+
+          {filterOpen && (
+            <div className="p-4 bg-coquette-50 border-b border-coquette-100 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+              <div>
+                <Label htmlFor="status">Status</Label>
+                <select 
+                  id="status" 
+                  className="mt-1 block w-full rounded-md border-coquette-200 focus:border-coquette-500 focus:ring focus:ring-coquette-500 focus:ring-opacity-50"
+                >
+                  <option value="">All Statuses</option>
+                  <option value="upcoming">Upcoming</option>
+                  <option value="completed">Completed</option>
+                  <option value="cancelled">Cancelled</option>
+                  <option value="confirmed">Confirmed</option>
+                </select>
+              </div>
+              <div>
+                <Label htmlFor="pet">Pet</Label>
+                <select 
+                  id="pet" 
+                  className="mt-1 block w-full rounded-md border-coquette-200 focus:border-coquette-500 focus:ring focus:ring-coquette-500 focus:ring-opacity-50"
+                >
+                  <option value="">All Pets</option>
+                  <option value="Max">Max</option>
+                  <option value="Bella">Bella</option>
+                  <option value="Charlie">Charlie</option>
+                </select>
+              </div>
+              <div>
+                <Label htmlFor="date-from">From Date</Label>
                 <Input 
-                  placeholder="Search appointments..." 
-                  className="pl-9"
+                  id="date-from" 
+                  type="date" 
+                  className="mt-1 border-coquette-200 focus-visible:ring-coquette-500"
                 />
               </div>
-              <Button variant="outline" size="icon">
-                <Filter className="h-4 w-4" />
-              </Button>
+              <div>
+                <Label htmlFor="date-to">To Date</Label>
+                <Input 
+                  id="date-to" 
+                  type="date" 
+                  className="mt-1 border-coquette-200 focus-visible:ring-coquette-500"
+                />
+              </div>
             </div>
-          </div>
-          
-          {/* Appointments List */}
-          <div className="space-y-4">
-            {filteredAppointments.length > 0 ? (
-              filteredAppointments.map(appointment => (
-                <div 
-                  key={appointment.id} 
-                  className="border border-gray-100 rounded-lg p-4 hover:border-coquette-200 transition-all"
-                >
-                  <div className="flex flex-col md:flex-row justify-between">
-                    <div className="flex items-start space-x-4">
-                      <div className={`p-3 rounded-full ${
-                        appointment.status === 'completed' 
-                          ? 'bg-green-100' 
-                          : appointment.status === 'pending' 
-                            ? 'bg-yellow-100' 
-                            : 'bg-blue-100'
-                      }`}>
-                        <PawPrint className={`h-5 w-5 ${
-                          appointment.status === 'completed' 
-                            ? 'text-green-600' 
-                            : appointment.status === 'pending' 
-                              ? 'text-yellow-600' 
-                              : 'text-blue-600'
-                        }`} />
-                      </div>
-                      <div>
-                        <div className="flex items-center mb-1">
-                          <h3 className="font-semibold">{appointment.service}</h3>
-                          <span className={`ml-2 text-xs px-2 py-0.5 rounded-full ${
-                            appointment.status === 'completed' 
-                              ? 'bg-green-100 text-green-800' 
-                              : appointment.status === 'pending' 
-                                ? 'bg-yellow-100 text-yellow-800' 
-                                : 'bg-blue-100 text-blue-800'
-                          }`}>
-                            {appointment.status.charAt(0).toUpperCase() + appointment.status.slice(1)}
-                          </span>
+          )}
+
+          {filteredAppointments.length > 0 ? (
+            <div className="divide-y divide-coquette-100">
+              {filteredAppointments.map((appointment) => (
+                <div key={appointment.id} className="p-4 hover:bg-coquette-50 transition-colors">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div className="flex-1">
+                      <div className="flex items-start gap-3">
+                        <div className="w-12 h-12 bg-coquette-100 rounded-full flex items-center justify-center">
+                          {appointment.petType === 'Dog' ? (
+                            <span className="text-xl">🐕</span>
+                          ) : appointment.petType === 'Cat' ? (
+                            <span className="text-xl">🐈</span>
+                          ) : (
+                            <span className="text-xl">🐾</span>
+                          )}
                         </div>
-                        <div className="flex items-center text-sm text-muted-foreground mb-1">
-                          <PawPrint className="mr-1 h-3.5 w-3.5" />
-                          <span>{appointment.pet} ({appointment.petType})</span>
-                        </div>
-                        <div className="flex items-center text-sm text-muted-foreground mb-1">
-                          <User className="mr-1 h-3.5 w-3.5" />
-                          <span>{appointment.doctor}</span>
+                        <div>
+                          <h3 className="font-medium text-foreground">{appointment.petName} - {appointment.service}</h3>
+                          <div className="mt-1 flex flex-wrap gap-y-1 gap-x-4 text-sm text-muted-foreground">
+                            <div className="flex items-center">
+                              <Calendar className="mr-1.5 h-3.5 w-3.5" />
+                              {appointment.date}
+                            </div>
+                            <div className="flex items-center">
+                              <Clock className="mr-1.5 h-3.5 w-3.5" />
+                              {appointment.time}
+                            </div>
+                            <div className="flex items-center">
+                              <User className="mr-1.5 h-3.5 w-3.5" />
+                              {appointment.veterinarian}
+                            </div>
+                            <div className="flex items-center">
+                              <MapPin className="mr-1.5 h-3.5 w-3.5" />
+                              {appointment.location}
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    
-                    <div className="mt-4 md:mt-0 flex flex-col items-end">
-                      <div className="flex items-center mb-2">
-                        <Calendar className="mr-1 h-4 w-4 text-coquette-500" />
-                        <span className="font-medium">{appointment.date}</span>
-                      </div>
-                      <div className="flex items-center mb-4">
-                        <Clock className="mr-1 h-4 w-4 text-coquette-500" />
-                        <span className="font-medium">{appointment.time}</span>
-                      </div>
-                      
-                      <div className="flex space-x-2">
-                        {appointment.status !== 'completed' && (
-                          <>
-                            <Button variant="outline" size="sm">Reschedule</Button>
-                            <Button variant="outline" size="sm" className="text-red-500 hover:text-red-600">Cancel</Button>
-                          </>
-                        )}
-                        {appointment.status === 'completed' && (
-                          <Button variant="outline" size="sm">
-                            <CheckCircle className="mr-1 h-4 w-4" />
-                            View Details
+                    <div className="flex items-center gap-3 ml-auto">
+                      <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(appointment.status)}`}>
+                        {appointment.status.charAt(0).toUpperCase() + appointment.status.slice(1)}
+                      </span>
+                      {appointment.status === 'upcoming' && (
+                        <div className="flex gap-2">
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            className="text-red-600 border-red-200 hover:bg-red-50"
+                            onClick={() => handleCancelAppointment(appointment.id)}
+                            icon={<X className="w-4 h-4" />}
+                          >
+                            Cancel
                           </Button>
-                        )}
-                      </div>
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            className="text-green-600 border-green-200 hover:bg-green-50"
+                            onClick={() => handleConfirmAppointment(appointment.id)}
+                            icon={<Check className="w-4 h-4" />}
+                          >
+                            Confirm
+                          </Button>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
-              ))
-            ) : (
-              <div className="text-center py-12 bg-gray-50 rounded-lg">
-                <Calendar className="mx-auto h-12 w-12 text-gray-400 mb-3" />
-                <h3 className="text-lg font-medium mb-2">No appointments found</h3>
-                <p className="text-muted-foreground mb-4">You haven't scheduled any appointments yet.</p>
-                <Link to="/appointments/new">
-                  <Button className="bg-coquette-500 hover:bg-coquette-600">
-                    Schedule Your First Appointment
-                  </Button>
-                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="p-8 text-center">
+              <div className="mx-auto w-16 h-16 bg-coquette-100 rounded-full flex items-center justify-center mb-4">
+                <Calendar className="h-8 w-8 text-coquette-500" />
               </div>
-            )}
-          </div>
+              <h3 className="text-lg font-medium text-foreground">No appointments found</h3>
+              <p className="mt-1 text-muted-foreground">
+                {searchTerm ? 'Try adjusting your search or filters' : 'Schedule your first appointment with us'}
+              </p>
+              {!searchTerm && (
+                <Button 
+                  variant="primary"
+                  className="mt-4"
+                  icon={<Plus className="w-4 h-4" />}
+                >
+                  Book Appointment
+                </Button>
+              )}
+            </div>
+          )}
         </div>
-      </div>
+      </main>
     </div>
   );
 };

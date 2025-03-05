@@ -146,8 +146,24 @@ export default {
 				'wiggle': 'wiggle 1s ease-in-out infinite'
 			},
 			fontFamily: {
-				sans: ['Inter', 'sans-serif'],
-				display: ['Montserrat', 'sans-serif']
+				sans: [
+					'-apple-system', 
+					'BlinkMacSystemFont', 
+					'Segoe UI', 
+					'Roboto', 
+					'Helvetica', 
+					'Arial', 
+					'sans-serif'
+				],
+				display: [
+					'-apple-system', 
+					'BlinkMacSystemFont', 
+					'Segoe UI', 
+					'Roboto', 
+					'Helvetica', 
+					'Arial', 
+					'sans-serif'
+				]
 			}
 		}
 	},

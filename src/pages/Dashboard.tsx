@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/layout/Navbar';
 import { Button } from '@/components/ui/button';
-import { Calendar, DollarSign, PawPrint, Clock, Home, Bell } from 'lucide-react';
+import { Calendar, PawPrint, Clock, Bell, PhilippinePeso } from 'lucide-react';
 
 const Dashboard = () => {
   const upcomingAppointments = [
@@ -47,7 +47,7 @@ const Dashboard = () => {
               <div className="bg-coquette-50 p-4 rounded-lg border border-coquette-100">
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium text-muted-foreground">Due</span>
-                  <DollarSign className="h-5 w-5 text-coquette-500" />
+                  <PhilippinePeso className="h-5 w-5 text-coquette-500" />
                 </div>
                 <p className="text-2xl font-bold mt-2">₱{recentBilling.filter(bill => bill.status === 'Pending').reduce((sum, bill) => sum + bill.amount, 0)}</p>
                 <p className="text-xs text-muted-foreground">Payments</p>
@@ -117,7 +117,7 @@ const Dashboard = () => {
               </Link>
               <Link to="/billing">
                 <Button variant="outline" className="w-full justify-start" size="sm">
-                  <DollarSign className="mr-2 h-4 w-4" />
+                  <PhilippinePeso className="mr-2 h-4 w-4" />
                   View Billing
                 </Button>
               </Link>

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Camera, CheckCircle, Edit, Save, User, X, Sparkles, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -9,7 +8,6 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 
 const Profile = () => {
-  // Initialize with empty values instead of hardcoded data
   const [profile, setProfile] = useState({
     name: '',
     email: '',
@@ -44,10 +42,27 @@ const Profile = () => {
   return (
     <>
       <Navbar />
-      <main className="pt-20 min-h-screen bg-gradient-to-b from-pink-50 to-white pb-12">
+      <main className="pt-20 min-h-screen bg-gradient-to-b from-pink-50 to-white pb-12 relative overflow-hidden">
+        <div className="fixed inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute -top-4 -left-4 w-24 h-24 text-coquette-200 animate-float opacity-20">
+            🐱
+          </div>
+          <div className="absolute top-1/4 -right-4 w-24 h-24 text-coquette-200 animate-float opacity-20" style={{ animationDelay: '1s' }}>
+            🐰
+          </div>
+          <div className="absolute bottom-1/4 -left-4 w-24 h-24 text-coquette-200 animate-float opacity-20" style={{ animationDelay: '2s' }}>
+            🐶
+          </div>
+          <div className="absolute -bottom-4 right-1/4 w-24 h-24 text-coquette-200 animate-float opacity-20" style={{ animationDelay: '1.5s' }}>
+            🦊
+          </div>
+          <div className="absolute top-20 left-1/4 w-32 h-32 bg-gradient-to-r from-coquette-200/20 to-coquette-300/20 rounded-full blur-xl animate-float" style={{ animationDuration: '8s' }}></div>
+          <div className="absolute top-40 right-1/3 w-48 h-48 bg-gradient-to-r from-coquette-300/10 to-coquette-400/10 rounded-full blur-xl animate-float" style={{ animationDuration: '12s', animationDelay: '1s' }}></div>
+          <div className="absolute bottom-40 left-1/3 w-40 h-40 bg-gradient-to-r from-coquette-100/20 to-coquette-200/20 rounded-full blur-xl animate-float" style={{ animationDuration: '10s', animationDelay: '2s' }}></div>
+        </div>
+
         <div className="container max-w-4xl mx-auto px-4 py-8">
           <div className="bg-white rounded-xl shadow-subtle border border-pink-100 hover:shadow-lg transition-shadow duration-300">
-            {/* Header */}
             <div className="bg-gradient-to-r from-coquette-400 to-coquette-500 py-6 px-6 text-white rounded-t-xl relative overflow-hidden">
               <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgMGg0djRIMFYwem04IDBoNHY0SDhWMHptOCAwaDF2NEgxNlYwek00IDRoNHY0SDRWNHptOCAwaDF2NGgtNFY0em04IDBoNHY0aC00VjR6TTAgOGg0djRIMFY4em04IDBoNHY0SDhWOHptOCAwaDF2NGgtNFY4ek00IDEyaDR2NEg0di00em04IDBoNHY0aC00di00em04IDBoNHY0aC00di00eiIgZmlsbD0iI0ZGRkZGRiIgZmlsbC1vcGFjaXR5PSIwLjA1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=')] opacity-50"></div>
               <div className="relative">
@@ -58,10 +73,8 @@ const Profile = () => {
               </div>
             </div>
 
-            {/* Profile content */}
             <div className="p-6 md:p-8">
               <div className="flex flex-col md:flex-row gap-8">
-                {/* Avatar section */}
                 <div className="flex flex-col items-center text-center">
                   <div className="relative group">
                     <div className="w-32 h-32 bg-gradient-to-br from-coquette-100 to-coquette-200 rounded-full flex items-center justify-center border-4 border-white shadow-md transition-transform duration-300 hover:scale-105">
@@ -90,7 +103,6 @@ const Profile = () => {
                   </p>
                 </div>
 
-                {/* Profile details */}
                 <div className="flex-1">
                   <div className="flex justify-between items-center mb-6">
                     <h3 className="text-lg font-medium">Personal Information</h3>
@@ -208,7 +220,6 @@ const Profile = () => {
             </div>
           </div>
 
-          {/* Account settings card */}
           <div className="mt-8 bg-white rounded-xl shadow-subtle border border-pink-100 overflow-hidden hover:shadow-lg transition-shadow duration-300">
             <div className="bg-gradient-to-r from-coquette-400 to-coquette-500 py-4 px-6 text-white rounded-t-xl relative overflow-hidden">
               <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgMGg0djRIMFYwem04IDBoNHY0SDhWMHptOCAwaDF2NEgxNlYwek00IDRoNHY0SDRWNHptOCAwaDF2NGgtNFY0em04IDBoNHY0aC00VjR6TTAgOGg0djRIMFY4em04IDBoNHY0SDhWOHptOCAwaDF2NGgtNFY4ek00IDEyaDR2NEg0di00em04IDBoNHY0aC00di00em04IDBoNHY0aC00di00eiIgZmlsbD0iI0ZGRkZGRiIgZmlsbC1vcGFjaXR5PSIwLjA1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=')] opacity-50"></div>

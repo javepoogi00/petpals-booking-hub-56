@@ -42,7 +42,7 @@ const Profile = () => {
   return (
     <>
       <Navbar />
-      <main className="pt-20 min-h-screen bg-gradient-to-b from-pink-50 to-white pb-12 relative overflow-hidden">
+      <main className="pt-20 min-h-screen bg-gradient-to-b from-pink-50/70 to-white/70 pb-12 relative overflow-hidden">
         <AnimatedBackground />
 
         <div className="container max-w-4xl mx-auto px-4 py-8 relative z-10">

@@ -39,22 +39,20 @@ const ProfileContent: React.FC<ProfileContentProps> = ({
       />
 
       <div className="p-6 md:p-8">
-        <div className="flex flex-col gap-8">
-          <div className="flex flex-col sm:flex-row gap-8">
-            <div className="sm:max-w-[180px]">
-              <ProfileAvatar avatarUrl={profile.avatarUrl} name={profile.name} />
-            </div>
-            <div className="flex-1">
-              <ProfileForm
-                profile={profile}
-                formData={formData}
-                editMode={editMode}
-                onInputChange={onInputChange}
-                onSave={onSave}
-                onCancel={onCancel}
-                setEditMode={setEditMode}
-              />
-            </div>
+        <div className="flex flex-col md:flex-row items-start gap-8">
+          <div className="md:w-1/4 flex justify-center md:sticky md:top-8">
+            <ProfileAvatar avatarUrl={profile.avatarUrl} name={profile.name} />
+          </div>
+          <div className="flex-1">
+            <ProfileForm
+              profile={profile}
+              formData={formData}
+              editMode={editMode}
+              onInputChange={onInputChange}
+              onSave={onSave}
+              onCancel={onCancel}
+              setEditMode={setEditMode}
+            />
           </div>
         </div>
       </div>

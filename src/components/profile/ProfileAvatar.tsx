@@ -11,7 +11,7 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ avatarUrl, name }) => {
   return (
     <div className="flex flex-col items-center text-center">
       <div className="relative group">
-        <div className="w-32 h-32 bg-gradient-to-br from-coquette-100 to-coquette-200 rounded-full flex items-center justify-center border-4 border-white shadow-md transition-transform duration-300 hover:scale-105">
+        <div className="w-36 h-36 md:w-40 md:h-40 bg-gradient-to-br from-coquette-100 to-coquette-200 rounded-full flex items-center justify-center border-4 border-white shadow-md transition-transform duration-300 hover:scale-105">
           {avatarUrl ? (
             <img 
               src={avatarUrl} 

@@ -49,7 +49,7 @@ const Dashboard = () => {
                   <span className="text-sm font-medium text-muted-foreground">Due</span>
                   <DollarSign className="h-5 w-5 text-coquette-500" />
                 </div>
-                <p className="text-2xl font-bold mt-2">${recentBilling.filter(bill => bill.status === 'Pending').reduce((sum, bill) => sum + bill.amount, 0)}</p>
+                <p className="text-2xl font-bold mt-2">₱{recentBilling.filter(bill => bill.status === 'Pending').reduce((sum, bill) => sum + bill.amount, 0)}</p>
                 <p className="text-xs text-muted-foreground">Payments</p>
               </div>
               
@@ -155,7 +155,7 @@ const Dashboard = () => {
                       <p className="text-sm text-muted-foreground">{bill.date}</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-medium">${bill.amount}</p>
+                      <p className="font-medium">₱{bill.amount}</p>
                       <span className={`text-xs px-2 py-1 rounded-full ${
                         bill.status === 'Paid' 
                           ? 'bg-green-100 text-green-800' 
@@ -176,7 +176,7 @@ const Dashboard = () => {
             <div className="mt-6 pt-4 border-t border-gray-100">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm font-medium">Total Due</span>
-                <span className="font-bold text-lg">${recentBilling.filter(bill => bill.status === 'Pending').reduce((sum, bill) => sum + bill.amount, 0)}</span>
+                <span className="font-bold text-lg">₱{recentBilling.filter(bill => bill.status === 'Pending').reduce((sum, bill) => sum + bill.amount, 0)}</span>
               </div>
               <Link to="/billing/pay">
                 <Button className="w-full justify-center bg-coquette-500 hover:bg-coquette-600 mt-2">

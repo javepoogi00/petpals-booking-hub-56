@@ -193,7 +193,7 @@ const Billing = () => {
                         </div>
                         
                         <div className="mt-4 md:mt-0 flex flex-col items-end">
-                          <div className="text-xl font-bold mb-3">${invoice.amount.toFixed(2)}</div>
+                          <div className="text-xl font-bold mb-3">₱{invoice.amount.toFixed(2)}</div>
                           
                           <div className="flex space-x-2">
                             <Button variant="outline" size="sm">
@@ -233,11 +233,11 @@ const Billing = () => {
               <div className="space-y-3 mb-6">
                 <div className="flex justify-between items-center pb-2 border-b border-gray-100">
                   <span className="text-muted-foreground">Unpaid Balance</span>
-                  <span className="font-bold text-xl">${unpaidTotal.toFixed(2)}</span>
+                  <span className="font-bold text-xl">₱{unpaidTotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-muted-foreground">Due Soon</span>
-                  <span className="font-medium">${invoices.filter(inv => inv.status === 'unpaid').length > 0 ? invoices.filter(inv => inv.status === 'unpaid')[0].amount.toFixed(2) : '0.00'}</span>
+                  <span className="font-medium">₱{invoices.filter(inv => inv.status === 'unpaid').length > 0 ? invoices.filter(inv => inv.status === 'unpaid')[0].amount.toFixed(2) : '0.00'}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-muted-foreground">Invoices</span>
@@ -311,7 +311,7 @@ const Billing = () => {
                       <p className="font-medium">{invoice.service}</p>
                       <p className="text-xs text-muted-foreground">{invoice.date}</p>
                     </div>
-                    <span className="font-medium">${invoice.amount.toFixed(2)}</span>
+                    <span className="font-medium">₱{invoice.amount.toFixed(2)}</span>
                   </div>
                 ))}
               </div>

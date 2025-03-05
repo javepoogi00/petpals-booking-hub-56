@@ -78,7 +78,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
     >
       {/* Sidebar Header */}
       <div className="flex items-center justify-between py-4 px-6">
-        <Logo size="md" linkTo="/dashboard" />
+        <Logo size="sm" linkTo="/dashboard" />
         {isMobile && (
           <Button variant="ghost" size="icon" onClick={onClose}>
             <X className="h-5 w-5" />

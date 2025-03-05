@@ -9,12 +9,12 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 
 const Profile = () => {
-  // Mock user data - in a real app, this would come from authentication/API
+  // Initialize with empty values instead of hardcoded data
   const [profile, setProfile] = useState({
-    name: 'Sarah Johnson',
-    email: 'sarah.j@example.com',
-    phone: '(555) 123-4567',
-    address: '123 Pawprint Lane, Furville',
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
     avatarUrl: '',
   });
 
@@ -77,7 +77,9 @@ const Profile = () => {
                       <Camera className="w-4 h-4" />
                     </button>
                   </div>
-                  <h2 className="font-semibold text-xl mt-4">{profile.name}</h2>
+                  <h2 className="font-semibold text-xl mt-4">
+                    {profile.name || 'Add your name'}
+                  </h2>
                   <p className="text-muted-foreground">Pet Parent</p>
                 </div>
 

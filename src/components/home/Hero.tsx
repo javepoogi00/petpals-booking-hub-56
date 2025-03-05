@@ -100,7 +100,7 @@ const Hero = () => {
             
             <img
               ref={imageRef}
-              src="https://images.unsplash.com/photo-1535268647677-300dbf3d78d1"
+              src="/lovable-uploads/dd3b7da4-5b1e-4202-826f-6283630aebe6.png"
               alt="Happy cat being groomed"
               className="w-full h-auto max-w-md mx-auto rounded-2xl shadow-xl object-cover opacity-0 translate-y-8 transition-all duration-1000 delay-300 border-4 border-white"
             />

@@ -49,7 +49,7 @@ const Login = () => {
         </div>
         <h1 className="text-3xl font-display font-bold text-center">Welcome Back</h1>
         <p className="text-muted-foreground mt-2 text-center max-w-md">
-          Sign in to your FurCare account to manage your pet's appointments
+          Sign in to access your account, manage appointments, and track your pet's health
         </p>
       </div>
 
@@ -74,9 +74,12 @@ const Login = () => {
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Label htmlFor="password">Password</Label>
-                <Link to="/forgot-password" className="text-xs text-primary hover:underline">
+                <a 
+                  href="#" 
+                  className="text-xs text-primary hover:underline"
+                >
                   Forgot password?
-                </Link>
+                </a>
               </div>
               <div className="relative">
                 <Input 
@@ -108,7 +111,7 @@ const Login = () => {
                 className="w-full font-display"
                 disabled={isLoading}
               >
-                {isLoading ? 'Signing In...' : 'Sign In'}
+                {isLoading ? 'Signing in...' : 'Sign In'}
                 {!isLoading && <ArrowRight className="ml-2 h-4 w-4" />}
               </Button>
             </div>
@@ -125,7 +128,7 @@ const Login = () => {
         </div>
 
         <div className="mt-8 text-center text-xs text-muted-foreground">
-          <p>By logging in, you agree to our</p>
+          <p>By signing in, you agree to our</p>
           <p className="mt-1">
             <a href="#" className="hover:underline">Terms of Service</a>
             {' '}&bull;{' '}

@@ -1,8 +1,8 @@
 
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { PawPrint, ArrowLeft } from "lucide-react";
-import Button from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 
 const NotFound = () => {
   const location = useLocation();
@@ -25,14 +25,15 @@ const NotFound = () => {
         <p className="text-muted-foreground mb-8">
           We couldn't find the page you're looking for. It might have been moved or doesn't exist.
         </p>
-        <Button 
-          variant="primary" 
-          icon={<ArrowLeft className="w-4 h-4" />}
-          className="mx-auto"
-          onClick={() => window.location.href = '/'}
-        >
-          Return to Home
-        </Button>
+        <Link to="/">
+          <Button 
+            variant="default" 
+            className="mx-auto"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Return to Home
+          </Button>
+        </Link>
       </div>
     </div>
   );

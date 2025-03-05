@@ -1,7 +1,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import { Calendar, ChevronRight, PawPrint, Shield, Clock } from 'lucide-react';
-import Button from '../ui/Button';
+import { Button } from '@/components/ui/button';
 
 const Hero = () => {
   const imageRef = useRef<HTMLImageElement>(null);

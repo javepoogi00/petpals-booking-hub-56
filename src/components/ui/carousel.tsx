@@ -1,90 +1,240 @@
-import React from 'react';
+import * as React from "react"
 import {
-  Carousel as CarouselRoot,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-  useCarousel,
-} from 'embla-carousel-react';
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react"
+import useEmblaCarousel, {
+  EmblaCarouselType,
+  EmblaOptionsType,
+  EmblaPluginType,
+} from "embla-carousel-react"
 
-import { cn } from '@/lib/utils';
-import { Button } from './button';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+
+const SLIDE_SCROLL_SNAP = "scroll-snap-align: start !important"
+
+type CarouselApi = UseEmblaCarouselType[0]
+type UseCarouselParameters = Parameters<typeof useEmblaCarousel>
+type CarouselOptions = UseCarouselParameters[0]
+type CarouselPlugin = UseCarouselParameters[1]
 
 interface CarouselProps {
-  children: React.ReactNode;
-  className?: string;
-  opts?: any;
+  opts?: CarouselOptions
+  plugins?: CarouselPlugin
+  orientation?: "horizontal" | "vertical"
+  setApi?: (api: CarouselApi) => void
 }
 
-interface CarouselItemProps {
-  children: React.ReactNode;
-  className?: string;
+const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
+  ({
+    children,
+    opts,
+    plugins,
+    orientation = "horizontal",
+    setApi,
+    ...props
+  }, ref) => {
+    const [api, setEmblaApi] = useEmblaCarousel(opts, plugins)
+    const [isMounted, setIsMounted] = useState(false)
+
+    useEffect(() => {
+      setIsMounted(true)
+    }, [])
+
+    const onInit = useCallback(
+      (emblaApi: EmblaCarouselType) => {
+        if (!emblaApi) return
+        setEmblaApi(emblaApi)
+        setApi?.(emblaApi)
+      },
+      [setApi, setEmblaApi]
+    )
+
+    useEffect(() => {
+      if (!api) return
+      onInit(api)
+    }, [api, onInit])
+
+    const containerClassName = useMemo(() => {
+      const base = "relative overflow-hidden"
+      return cn(base, {
+        "embla-carousel-vertical": orientation === "vertical",
+      })
+    }, [orientation])
+
+    const viewportClassName = useMemo(() => {
+      const base =
+        "embla-carousel-viewport h-full w-full touch-pan-y selection:none will-change-[transform]"
+      return cn(base, {
+        "embla-carousel-viewport-vertical": orientation === "vertical",
+      })
+    }, [orientation])
+
+    const slidesClassName = useMemo(() => {
+      const base = "flex h-full w-full"
+      return cn(base, {
+        "embla-carousel-slides-vertical": orientation === "vertical",
+      })
+    }, [orientation])
+
+    const slideClassName = useMemo(() => {
+      const base = "relative min-w-0 h-full w-full"
+      return cn(base, {
+        "embla-carousel-slide-vertical": orientation === "vertical",
+      })
+    }, [orientation])
+
+    return (
+      <div className={containerClassName} {...props} ref={ref}>
+        <div className={viewportClassName}>
+          <div className={slidesClassName}>
+            {React.Children.map(children, (child, index) => (
+              <div
+                key={`slide-${index}`}
+                className={cn(slideClassName, "relative", {
+                  "embla-carousel-slide": isMounted,
+                })}
+                style={{
+                  ...(orientation === "horizontal"
+                    ? {
+                        [SLIDE_SCROLL_SNAP]: "var(--carousel-snap-align)",
+                      }
+                    : {
+                        [SLIDE_SCROLL_SNAP]: "var(--carousel-snap-align)",
+                      }),
+                }}
+              >
+                {child}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
+  }
+)
+Carousel.displayName = "Carousel"
+
+interface AutoplayOptions {
+  delay?: number
+  stopOnInteraction?: boolean
 }
 
-interface CarouselControlProps {
-  carousel: ReturnType<typeof useCarousel>;
-  className?: string;
-  size?: 'sm' | 'md' | 'lg';
+interface AutoplayProps {
+  api: CarouselApi
+  options?: AutoplayOptions
 }
 
-const Carousel = ({ children, className, opts }: CarouselProps) => {
+const Autoplay = ({ api, options }: AutoplayProps) => {
+  const { delay = 2000, stopOnInteraction = true } = options || {}
+  const [isRunning, setIsRunning] = useState(true)
+  const timer = React.useRef(null)
+
+  const autoplay = useCallback(() => {
+    if (!api) return
+    if (!isRunning) return
+
+    timer.current = window.setTimeout(() => {
+      api.scrollNext()
+      autoplay()
+    }, delay)
+  }, [api, delay, isRunning])
+
+  useEffect(() => {
+    if (!api) return
+
+    autoplay()
+
+    api.on("destroy", () => clearTimeout(timer.current))
+    api.on("settle", autoplay)
+
+    if (stopOnInteraction) {
+      api.on("pointerDown", () => setIsRunning(false))
+      api.on("dragStart", () => setIsRunning(false))
+      api.on("focusin", () => setIsRunning(false))
+
+      api.on("pointerUp", () => setIsRunning(true))
+      api.on("dragEnd", () => setIsRunning(true))
+      api.on("focusout", () => setIsRunning(true))
+    }
+
+    return () => clearTimeout(timer.current)
+  }, [api, autoplay, stopOnInteraction])
+
+  return null
+}
+Autoplay.displayName = "Autoplay"
+
+type CarouselPrevProps = React.ComponentProps<typeof Button> & {
+  variant?: "default" | "outline" | "ghost"
+  size?: "sm" | "md" | "lg"
+}
+
+const CarouselPrev = ({
+  variant = "default",
+  size = "sm",
+  className,
+  ...props
+}: CarouselPrevProps) => {
   return (
-    <div className={cn('relative', className)}>
-      <CarouselRoot opts={opts}>{children}</CarouselRoot>
-    </div>
-  );
-};
+    <Button
+      variant={variant}
+      size={size}
+      className={cn(
+        "absolute left-2 top-1/2 z-10 -translate-y-1/2 h-8 w-8 rounded-full",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+CarouselPrev.displayName = "CarouselPrev"
 
-const Item = ({ children, className }: CarouselItemProps) => {
+type CarouselNextProps = React.ComponentProps<typeof Button> & {
+  variant?: "default" | "outline" | "ghost"
+  size?: "sm" | "md" | "lg"
+}
+
+const CarouselNext = ({
+  variant = "default",
+  size = "sm",
+  className,
+  ...props
+}: CarouselNextProps) => {
   return (
-    <CarouselItem className={cn('relative flex w-full shrink-0', className)}>
+    <Button
+      variant={variant}
+      size={size}
+      className={cn(
+        "absolute right-2 top-1/2 z-10 -translate-y-1/2 h-8 w-8 rounded-full",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+CarouselNext.displayName = "CarouselNext"
+
+const CarouselItem = ({
+  className,
+  children,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => {
+  return (
+    <div className={cn("relative flex aspect-square", className)} {...props}>
       {children}
-    </CarouselItem>
-  );
-};
+    </div>
+  )
+}
+CarouselItem.displayName = "CarouselItem"
 
-const Content = ({ children, className }: { children: React.ReactNode; className?: string }) => {
-  return <CarouselContent className={cn('flex gap-1 overflow-hidden scroll-smooth', className)}>{children}</CarouselContent>;
-};
-
-const Previous = ({ carousel, className, size = 'md' }: CarouselControlProps) => {
-  return (
-    <Button
-      variant="ghost"
-      size={size}
-      className={cn(
-        'absolute left-2 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full',
-        '-ml-4 sm:-ml-6',
-        className
-      )}
-      onClick={() => carousel.scrollPrev()}
-      disabled={!carousel.canScrollPrev()}
-    >
-      <ChevronLeft className="h-4 w-4" />
-      <span className="sr-only">Previous</span>
-    </Button>
-  );
-};
-
-const Next = ({ carousel, className, size = 'md' }: CarouselControlProps) => {
-  return (
-    <Button
-      variant="ghost"
-      size={size}
-      className={cn(
-        'absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full',
-        '-mr-4 sm:-mr-6',
-        className
-      )}
-      onClick={() => carousel.scrollNext()}
-      disabled={!carousel.canScrollNext()}
-    >
-      <ChevronRight className="h-4 w-4" />
-      <span className="sr-only">Next</span>
-    </Button>
-  );
-};
-
-export { Carousel, Content, Item, Previous, Next };
+export {
+  Carousel,
+  CarouselPrev,
+  CarouselNext,
+  CarouselItem,
+  Autoplay,
+}

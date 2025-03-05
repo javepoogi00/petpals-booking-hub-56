@@ -10,8 +10,8 @@ interface ProfileAvatarProps {
 const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ avatarUrl, name }) => {
   return (
     <div className="flex flex-col items-center text-center">
-      <div className="relative group">
-        <div className="w-32 h-32 bg-gradient-to-br from-coquette-100 to-coquette-200 rounded-full flex items-center justify-center border-4 border-white shadow-md transition-transform duration-300 hover:scale-105">
+      <div className="relative mb-2">
+        <div className="w-32 h-32 bg-pink-100 rounded-full flex items-center justify-center border-4 border-white shadow-sm">
           {avatarUrl ? (
             <img 
               src={avatarUrl} 
@@ -19,22 +19,24 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ avatarUrl, name }) => {
               className="w-full h-full rounded-full object-cover" 
             />
           ) : (
-            <User className="w-16 h-16 text-coquette-400" />
+            <User className="w-16 h-16 text-pink-400" />
           )}
         </div>
         <button 
-          className="absolute bottom-0 right-0 bg-coquette-500 text-white rounded-full p-2 shadow-lg hover:bg-coquette-600 transition-colors duration-300 hover:scale-110"
+          className="absolute bottom-0 right-0 bg-pink-500 text-white rounded-full p-2 shadow-lg hover:bg-pink-600 transition-colors duration-300"
           aria-label="Change profile picture"
         >
           <Camera className="w-4 h-4" />
         </button>
       </div>
-      <h2 className="font-semibold text-xl mt-4 text-coquette-800">
-        {name || 'Add your name'}
-      </h2>
-      <p className="text-coquette-500 flex items-center gap-1 justify-center">
-        Pet Parent <Heart className="w-4 h-4 text-coquette-400 animate-pulse" />
-      </p>
+      <div className="text-center">
+        <h2 className="text-purple-600 text-xl font-medium">
+          {name ? name : 'Add your name'}
+        </h2>
+        <p className="text-pink-500 flex items-center gap-1 justify-center text-sm">
+          Pet Parent <Heart className="w-4 h-4 text-pink-400" />
+        </p>
+      </div>
     </div>
   );
 };

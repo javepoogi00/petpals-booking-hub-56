@@ -42,21 +42,28 @@ const Profile = () => {
   return (
     <>
       <Navbar />
-      <main className="pt-20 min-h-screen bg-gradient-to-b from-pink-50 to-white pb-12 relative">
-        <div className="container max-w-4xl mx-auto px-4 py-8">
+      <main className="pt-20 min-h-screen bg-gradient-to-b from-pink-50 to-white pb-12 relative overflow-hidden">
+        <div className="fixed inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute -top-4 -left-4 w-32 h-32 text-coquette-400 animate-float opacity-60">
+            🐱
+          </div>
+          <div className="absolute top-1/4 -right-4 w-32 h-32 text-coquette-400 animate-float opacity-60" style={{ animationDelay: '1s' }}>
+            🐰
+          </div>
+          <div className="absolute bottom-1/4 left-1/4 w-32 h-32 text-coquette-400 animate-float opacity-60" style={{ animationDelay: '2s' }}>
+            🐶
+          </div>
+          <div className="absolute -bottom-4 right-1/4 w-32 h-32 text-coquette-400 animate-float opacity-60" style={{ animationDelay: '1.5s' }}>
+            🦊
+          </div>
+          <div className="absolute top-20 left-1/4 w-48 h-48 bg-gradient-to-r from-coquette-200/40 to-coquette-300/40 rounded-full blur-xl animate-float" style={{ animationDuration: '8s' }}></div>
+          <div className="absolute top-40 right-1/3 w-64 h-64 bg-gradient-to-r from-coquette-300/30 to-coquette-400/30 rounded-full blur-xl animate-float" style={{ animationDuration: '12s', animationDelay: '1s' }}></div>
+          <div className="absolute bottom-40 left-1/3 w-56 h-56 bg-gradient-to-r from-coquette-100/40 to-coquette-200/40 rounded-full blur-xl animate-float" style={{ animationDuration: '10s', animationDelay: '2s' }}></div>
+        </div>
+
+        <div className="container max-w-4xl mx-auto px-4 py-8 relative z-10">
           <div className="bg-white rounded-xl shadow-subtle border border-pink-100 hover:shadow-lg transition-shadow duration-300">
             <div className="bg-gradient-to-r from-coquette-400 to-coquette-500 py-6 px-6 text-white rounded-t-xl relative overflow-hidden">
-              <div className="absolute -top-4 -left-4 w-16 h-16 text-white/20 animate-float opacity-20">
-                🐱
-              </div>
-              <div className="absolute top-1/4 -right-4 w-16 h-16 text-white/20 animate-float opacity-20" style={{ animationDelay: '1s' }}>
-                🐰
-              </div>
-              <div className="absolute bottom-0 left-1/4 w-16 h-16 text-white/20 animate-float opacity-20" style={{ animationDelay: '1.5s' }}>
-                🐶
-              </div>
-              <div className="absolute top-20 left-1/3 w-32 h-32 bg-gradient-to-r from-white/5 to-white/10 rounded-full blur-xl animate-float" style={{ animationDuration: '8s' }}></div>
-              <div className="absolute -bottom-8 right-1/4 w-40 h-40 bg-gradient-to-r from-white/10 to-white/5 rounded-full blur-xl animate-float" style={{ animationDuration: '10s', animationDelay: '1s' }}></div>
               <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgMGg0djRIMFYwem04IDBoNHY0SDhWMHptOCAwaDF2NEgxNlYwek00IDRoNHY0SDRWNHptOCAwaDF2NGgtNFY0em04IDBoNHY0aC00VjR6TTAgOGg0djRIMFY4em04IDBoNHY0SDhWOHptOCAwaDF2NGgtNFY4ek00IDEyaDR2NEg0di00em04IDBoNHY0aC00di00em04IDBoNHY0aC00di00eiIgZmlsbD0iI0ZGRkZGRiIgZmlsbC1vcGFjaXR5PSIwLjA1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=')] opacity-50"></div>
               <div className="relative">
                 <h1 className="text-2xl font-semibold flex items-center gap-2">

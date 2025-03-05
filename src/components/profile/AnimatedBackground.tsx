@@ -1,0 +1,26 @@
+
+import React from 'react';
+
+const AnimatedBackground: React.FC = () => {
+  return (
+    <div className="fixed inset-0 pointer-events-none overflow-hidden">
+      <div className="absolute -top-4 -left-4 w-32 h-32 text-coquette-400 animate-float opacity-60">
+        🐱
+      </div>
+      <div className="absolute top-1/4 -right-4 w-32 h-32 text-coquette-400 animate-float opacity-60" style={{ animationDelay: '1s' }}>
+        🐰
+      </div>
+      <div className="absolute bottom-1/4 left-1/4 w-32 h-32 text-coquette-400 animate-float opacity-60" style={{ animationDelay: '2s' }}>
+        🐶
+      </div>
+      <div className="absolute -bottom-4 right-1/4 w-32 h-32 text-coquette-400 animate-float opacity-60" style={{ animationDelay: '1.5s' }}>
+        🦊
+      </div>
+      <div className="absolute top-20 left-1/4 w-48 h-48 bg-gradient-to-r from-coquette-200/40 to-coquette-300/40 rounded-full blur-xl animate-float" style={{ animationDuration: '8s' }}></div>
+      <div className="absolute top-40 right-1/3 w-64 h-64 bg-gradient-to-r from-coquette-300/30 to-coquette-400/30 rounded-full blur-xl animate-float" style={{ animationDuration: '12s', animationDelay: '1s' }}></div>
+      <div className="absolute bottom-40 left-1/3 w-56 h-56 bg-gradient-to-r from-coquette-100/40 to-coquette-200/40 rounded-full blur-xl animate-float" style={{ animationDuration: '10s', animationDelay: '2s' }}></div>
+    </div>
+  );
+};
+
+export default AnimatedBackground;

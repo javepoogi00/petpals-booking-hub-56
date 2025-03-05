@@ -4,8 +4,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import { PawPrint, UserPlus, Mail, Lock, ArrowRight, Eye, EyeOff, Heart } from 'lucide-react';
+import { UserPlus, Mail, Lock, ArrowRight, Eye, EyeOff, Heart, PawPrint } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { Logo } from '@/components/ui/logo';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -72,16 +73,8 @@ const Register = () => {
       </div>
       
       <div className="mb-8 flex flex-col items-center relative z-10">
-        <div className="flex items-center justify-center w-16 h-16 rounded-full bg-white mb-4 shadow-subtle border-2 border-coquette-200 animate-wiggle">
-          <PawPrint className="h-8 w-8 text-coquette-600" />
-        </div>
-        <h1 className="text-3xl font-display font-bold text-center relative">
-          Join FurCare
-          <span className="absolute -top-6 right-0 transform translate-x-1/2 -translate-y-1/2">
-            <Heart className="h-6 w-6 text-coquette-400 animate-pulse" />
-          </span>
-        </h1>
-        <p className="text-muted-foreground mt-2 text-center max-w-md">
+        <Logo size="lg" />
+        <p className="text-muted-foreground mt-4 text-center max-w-md">
           Create an account to book appointments, track pet health, and receive special offers
         </p>
       </div>

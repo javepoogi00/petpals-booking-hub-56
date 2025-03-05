@@ -1,8 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Calendar, PawPrint } from 'lucide-react';
+import { Menu, X, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { Logo } from '@/components/ui/logo';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -35,14 +36,7 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <Link to="/">
-              <PawPrint className="h-8 w-8 text-primary" />
-            </Link>
-            <Link to="/">
-              <span className="text-xl font-display font-bold">FurCare</span>
-            </Link>
-          </div>
+          <Logo size="md" />
           
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">

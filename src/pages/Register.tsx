@@ -54,19 +54,40 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12 bg-gradient-to-b from-coquette-50 to-coquette-100 paw-pattern">
-      <div className="mb-8 flex flex-col items-center">
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12 bg-gradient-to-b from-coquette-50 to-coquette-100 relative overflow-hidden">
+      {/* Pet-themed animated background elements */}
+      <div className="absolute inset-0 z-0 overflow-hidden paw-pattern opacity-40">
+        <div className="absolute -top-20 -left-20 w-40 h-40 opacity-20">
+          <PawPrint className="w-full h-full text-coquette-300 animate-float" />
+        </div>
+        <div className="absolute top-1/4 right-10 w-28 h-28 opacity-20">
+          <PawPrint className="w-full h-full text-coquette-400 animate-float" style={{ animationDelay: '1s' }} />
+        </div>
+        <div className="absolute bottom-1/3 left-10 w-32 h-32 opacity-20">
+          <PawPrint className="w-full h-full text-coquette-300 animate-float" style={{ animationDelay: '2s' }} />
+        </div>
+        <div className="absolute bottom-10 right-20 w-36 h-36 opacity-20">
+          <PawPrint className="w-full h-full text-coquette-400 animate-float" style={{ animationDelay: '1.5s' }} />
+        </div>
+      </div>
+      
+      <div className="mb-8 flex flex-col items-center relative z-10">
         <div className="flex items-center justify-center w-16 h-16 rounded-full bg-white mb-4 shadow-subtle border-2 border-coquette-200 animate-wiggle">
           <PawPrint className="h-8 w-8 text-coquette-600" />
         </div>
-        <h1 className="text-3xl font-display font-bold text-center">Join FurCare</h1>
+        <h1 className="text-3xl font-display font-bold text-center relative">
+          Join FurCare
+          <span className="absolute -top-6 right-0 transform translate-x-1/2 -translate-y-1/2">
+            <Heart className="h-6 w-6 text-coquette-400 animate-pulse" />
+          </span>
+        </h1>
         <p className="text-muted-foreground mt-2 text-center max-w-md">
           Create an account to book appointments, track pet health, and receive special offers
         </p>
       </div>
 
-      <div className="w-full max-w-md">
-        <div className="bg-white shadow-subtle rounded-xl p-6 sm:p-8 border border-coquette-100">
+      <div className="w-full max-w-md relative z-10">
+        <div className="bg-white/90 backdrop-blur-sm shadow-subtle rounded-xl p-6 sm:p-8 border border-coquette-100">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="name">Full Name</Label>
@@ -161,7 +182,7 @@ const Register = () => {
           </div>
         </div>
 
-        <div className="mt-8 text-center text-xs text-muted-foreground">
+        <div className="mt-8 text-center text-xs text-muted-foreground relative z-10">
           <p>By creating an account, you agree to our</p>
           <p className="mt-1">
             <a href="#" className="text-coquette-600 hover:underline">Terms of Service</a>

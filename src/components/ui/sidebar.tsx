@@ -1,7 +1,8 @@
 "use client"
 
 import * as React from "react"
-import { useEffect, useState } from "react"
+import { useState } from "react"
+import { cn } from "@/lib/utils"
 import {
   ArrowLeftIcon,
   ArrowLeftToLineIcon,
@@ -15,7 +16,7 @@ import {
   Users,
   X,
 } from "lucide-react"
-import { useMobile } from "@/hooks/use-mobile"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
@@ -64,7 +65,7 @@ export const SidebarContext = React.createContext<SidebarContextProps>({
   rtlToggle: () => {},
 })
 
-export function Sidebar({
+export function SidebarWrapper({
   children,
   defaultCollapsed = false,
   collapsible = true,
@@ -82,7 +83,7 @@ export function Sidebar({
   const [isToggled, setIsToggled] = useState(toggled)
   const [isRtl, setIsRtl] = useState(false)
   const [isBroken, setIsBroken] = useState(false)
-  const isMobile = useMobile()
+  const isMobile = useIsMobile()
 
   React.useEffect(() => {
     if (collapsed !== undefined) {
@@ -381,11 +382,11 @@ export function SidebarToggleTrigger({
 export function SidebarDemo() {
   return (
     <div className="grid min-h-screen grid-cols-[70px_1fr]">
-      <Sidebar defaultCollapsed={true}>
+      <SidebarWrapper defaultCollapsed={true}>
         <SidebarItem icon={<Users />}>Users</SidebarItem>
         <SidebarItem icon={<UserPlusIcon />}>Invite users</SidebarItem>
         <SidebarItem icon={<Settings />}>Settings</SidebarItem>
-      </Sidebar>
+      </SidebarWrapper>
       <div className="p-8">
         <p>Main Content</p>
       </div>

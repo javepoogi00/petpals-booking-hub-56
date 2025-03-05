@@ -194,7 +194,7 @@ CarouselItem.displayName = "CarouselItem"
 
 type CarouselPreviousProps = React.ComponentProps<typeof Button> & {
   variant?: "default" | "outline" | "ghost",
-  size?: "sm" | "md" | "lg"
+  size?: "icon" | "sm" | "default" | "lg"
 };
 
 const CarouselPrevious = React.forwardRef<
@@ -228,7 +228,7 @@ CarouselPrevious.displayName = "CarouselPrevious"
 
 type CarouselNextProps = React.ComponentProps<typeof Button> & {
   variant?: "default" | "outline" | "ghost",
-  size?: "sm" | "md" | "lg"
+  size?: "icon" | "sm" | "default" | "lg"
 };
 
 const CarouselNext = React.forwardRef<

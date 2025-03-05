@@ -156,13 +156,13 @@ export default {
 					'sans-serif'
 				],
 				display: [
-					'-apple-system', 
-					'BlinkMacSystemFont', 
-					'Segoe UI', 
-					'Roboto', 
-					'Helvetica', 
-					'Arial', 
-					'sans-serif'
+					'Dancing Script',
+					'cursive'
+				],
+				instagram: [
+					'Grand Hotel',
+					'Dancing Script',
+					'cursive'
 				]
 			}
 		}

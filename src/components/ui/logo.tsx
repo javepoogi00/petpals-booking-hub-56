@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { PawPrint, Heart } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -57,7 +58,7 @@ export const Logo = ({
       
       {showText && (
         <span className={cn(
-          'font-display font-bold', 
+          'font-instagram font-bold', 
           sizeMap[size].text
         )}>
           FurCare

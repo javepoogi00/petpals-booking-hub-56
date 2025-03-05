@@ -1,6 +1,6 @@
 
-/* Replace font imports with system fonts */
-/* We're removing Montserrat and Inter fonts and using system fonts instead */
+/* Import the Instagram-like font */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Grand+Hotel&display=swap');
 
 @tailwind base;
 @tailwind components;

@@ -61,7 +61,7 @@ const Features = () => {
     {
       icon: <Search />,
       title: 'Find Specialists',
-      description: 'Easily search for specialists based on your pet's needs.'
+      description: "Easily search for specialists based on your pet's needs."
     }
   ];
 

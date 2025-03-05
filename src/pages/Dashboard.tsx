@@ -12,8 +12,8 @@ const Dashboard = () => {
   ];
   
   const recentBilling = [
-    { id: 1, service: 'Annual Checkup', amount: 85, date: '2023-08-15', status: 'Paid' },
-    { id: 2, service: 'Dental Cleaning', amount: 150, date: '2023-07-28', status: 'Pending' },
+    { id: 1, service: 'Annual Checkup', amount: 350, date: '2023-08-15', status: 'Paid' },
+    { id: 2, service: 'Dental Cleaning', amount: 200, date: '2023-07-28', status: 'Pending' },
   ];
 
   return (

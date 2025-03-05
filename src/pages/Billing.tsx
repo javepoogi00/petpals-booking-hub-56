@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Navbar from '@/components/layout/Navbar';
 import { Button } from '@/components/ui/button';
@@ -21,7 +20,7 @@ const Billing = () => {
       pet: 'Max',
       date: 'Aug 15, 2023', 
       dueDate: 'Aug 30, 2023',
-      amount: 185.00, 
+      amount: 350.00, 
       status: 'unpaid' 
     },
     { 
@@ -30,7 +29,7 @@ const Billing = () => {
       pet: 'Bella',
       date: 'Jul 28, 2023', 
       dueDate: 'Aug 11, 2023',
-      amount: 250.00, 
+      amount: 200.00, 
       status: 'unpaid' 
     },
     { 

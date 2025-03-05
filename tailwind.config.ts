@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -105,11 +104,12 @@ export default {
 				'accordion-up': {
 					from: {
 						height: 'var(--radix-accordion-content-height)'
-					},
-					to: {
-						height: '0'
 					}
 				},
+				to: {
+					height: '0'
+				}
+			},
 				'float': {
 					'0%, 100%': { transform: 'translateY(0)' },
 					'50%': { transform: 'translateY(-10px)' }
@@ -156,8 +156,13 @@ export default {
 					'sans-serif'
 				],
 				display: [
-					'Dancing Script',
-					'cursive'
+					'-apple-system', 
+					'BlinkMacSystemFont', 
+					'Segoe UI', 
+					'Roboto', 
+					'Helvetica', 
+					'Arial', 
+					'sans-serif'
 				],
 				instagram: [
 					'Grand Hotel',

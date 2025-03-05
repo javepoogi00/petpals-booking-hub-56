@@ -1,5 +1,5 @@
 
-/* Import the Instagram-like font */
+/* Import the Instagram-like font only for the FurCare logo */
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Grand+Hotel&display=swap');
 
 @tailwind base;

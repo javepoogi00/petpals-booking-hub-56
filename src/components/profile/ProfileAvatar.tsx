@@ -32,8 +32,8 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ avatarUrl, name }) => {
       <h2 className="font-semibold text-xl mt-4 text-coquette-800">
         {name || 'Add your name'}
       </h2>
-      <p className="text-coquette-500 flex items-center gap-1">
-        Pet Parent <Heart className="w-4 h-4 text-coquette-400 animate-bounce" />
+      <p className="text-coquette-500 flex items-center gap-1 justify-center">
+        Pet Parent <Heart className="w-4 h-4 text-coquette-400 animate-pulse" />
       </p>
     </div>
   );

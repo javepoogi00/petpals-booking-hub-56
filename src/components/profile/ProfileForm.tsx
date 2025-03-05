@@ -78,9 +78,10 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
                 value={formData.name}
                 onChange={onInputChange}
                 className="border-coquette-200 focus-visible:ring-coquette-500"
+                placeholder="Enter your full name"
               />
             ) : (
-              <p className="text-foreground py-2">{profile.name}</p>
+              <p className="text-foreground py-2">{profile.name || 'Not provided'}</p>
             )}
           </div>
 
@@ -94,9 +95,10 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
                 value={formData.email}
                 onChange={onInputChange}
                 className="border-coquette-200 focus-visible:ring-coquette-500"
+                placeholder="Enter your email address"
               />
             ) : (
-              <p className="text-foreground py-2">{profile.email}</p>
+              <p className="text-foreground py-2">{profile.email || 'Not provided'}</p>
             )}
           </div>
 
@@ -109,9 +111,10 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
                 value={formData.phone}
                 onChange={onInputChange}
                 className="border-coquette-200 focus-visible:ring-coquette-500"
+                placeholder="Enter your phone number"
               />
             ) : (
-              <p className="text-foreground py-2">{profile.phone}</p>
+              <p className="text-foreground py-2">{profile.phone || 'Not provided'}</p>
             )}
           </div>
 
@@ -124,16 +127,17 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
                 value={formData.address}
                 onChange={onInputChange}
                 className="border-coquette-200 focus-visible:ring-coquette-500"
+                placeholder="Enter your address"
               />
             ) : (
-              <p className="text-foreground py-2">{profile.address}</p>
+              <p className="text-foreground py-2">{profile.address || 'Not provided'}</p>
             )}
           </div>
         </div>
       </div>
 
       {!editMode && (
-        <div className="mt-6 p-4 bg-coquette-50 rounded-lg border border-coquette-100">
+        <div className="mt-6 p-4 bg-pink-50 rounded-lg border border-pink-100">
           <div className="flex items-start gap-3">
             <CheckCircle className="w-5 h-5 text-coquette-500 mt-0.5" />
             <div>

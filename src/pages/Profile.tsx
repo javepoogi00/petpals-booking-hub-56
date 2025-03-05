@@ -45,7 +45,7 @@ const Profile = () => {
       <main className="pt-20 min-h-screen bg-white pb-12 relative overflow-hidden">
         <AnimatedBackground />
 
-        <div className="container max-w-4xl mx-auto px-4 py-8 relative z-10 bg-white/80 rounded-lg shadow-sm backdrop-blur-sm">
+        <div className="container max-w-4xl mx-auto px-4 py-8 relative z-10 bg-white/90 rounded-lg shadow-sm backdrop-blur-sm">
           <ProfileContent 
             profile={profile}
             formData={formData}

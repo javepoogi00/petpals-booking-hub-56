@@ -2,7 +2,6 @@
 import React from 'react';
 import ProfileAvatar from './ProfileAvatar';
 import ProfileForm from './ProfileForm';
-import ProfileHeader from './ProfileHeader';
 
 interface ProfileData {
   name: string;
@@ -32,17 +31,10 @@ const ProfileContent: React.FC<ProfileContentProps> = ({
   setEditMode
 }) => {
   return (
-    <div className="bg-white rounded-xl shadow-subtle border border-pink-100 hover:shadow-lg transition-shadow duration-300">
-      <ProfileHeader 
-        title="My Profile" 
-        description="Manage your personal information" 
-      />
-
-      <div className="p-6 md:p-8">
-        <div className="flex flex-col md:flex-row items-start gap-8">
-          <div className="md:w-1/4 flex justify-center md:sticky md:top-8">
-            <ProfileAvatar avatarUrl={profile.avatarUrl} name={profile.name} />
-          </div>
+    <div className="bg-[#f0e6cc] rounded-lg shadow-sm p-6">
+      <div className="flex flex-col gap-6">
+        <div className="flex items-start gap-6">
+          <ProfileAvatar avatarUrl={profile.avatarUrl} name={profile.name} />
           <div className="flex-1">
             <ProfileForm
               profile={profile}

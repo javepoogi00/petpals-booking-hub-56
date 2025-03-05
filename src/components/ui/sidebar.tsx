@@ -1,3 +1,4 @@
+
 // Update the import to use the correct hook name
 import { useIsMobile } from "@/hooks/use-mobile";
 import React, { useState } from 'react';
@@ -80,7 +81,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       <div className="flex items-center justify-between py-4 px-6">
         <Logo size="sm" linkTo="/dashboard" />
         {isMobile && (
-          <Button variant="ghost" size="icon" onClick={onClose}>
+          <Button variant="ghost" size="sm" onClick={onClose}>
             <X className="h-5 w-5" />
           </Button>
         )}

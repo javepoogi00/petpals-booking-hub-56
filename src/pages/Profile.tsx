@@ -5,7 +5,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import ProfileContent from '@/components/profile/ProfileContent';
 import AccountSettings from '@/components/profile/AccountSettings';
-import AnimatedBackground from '@/components/profile/AnimatedBackground';
+import { User } from 'lucide-react';
 
 const Profile = () => {
   const [profile, setProfile] = useState({
@@ -40,29 +40,46 @@ const Profile = () => {
   };
 
   return (
-    <>
-      <Navbar />
-      <main className="pt-20 min-h-screen bg-white pb-12 relative overflow-hidden">
-        <AnimatedBackground />
-
-        <div className="container max-w-5xl mx-auto px-4 py-8 relative z-10 bg-white/90 rounded-lg shadow-sm backdrop-blur-sm">
-          <ProfileContent 
-            profile={profile}
-            formData={formData}
-            editMode={editMode}
-            onInputChange={handleInputChange}
-            onSave={handleSave}
-            onCancel={handleCancel}
-            setEditMode={setEditMode}
-          />
-
-          <div className="mt-8">
-            <AccountSettings />
-          </div>
+    <div className="flex">
+      {/* Left sidebar */}
+      <div className="bg-[#e6e8c4] w-[140px] min-h-screen fixed left-0 top-0 bottom-0 shadow-md">
+        <div className="pt-6 px-4">
+          <div className="text-blue-600 font-bold text-2xl font-instagram">FUR</div>
+          <nav className="mt-8">
+            <ul className="space-y-1">
+              <li className="py-2 px-4 hover:bg-blue-100 rounded">Pet list</li>
+              <li className="py-2 px-4 hover:bg-blue-100 rounded">Your listings</li>
+              <li className="py-2 px-4 bg-blue-200 rounded">Profile</li>
+            </ul>
+          </nav>
         </div>
-      </main>
-      <Footer />
-    </>
+      </div>
+
+      {/* Main content */}
+      <div className="ml-[140px] flex-1">
+        <header className="p-4 border-b border-gray-200 flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <h1 className="text-xl font-semibold">Profile</h1>
+            <User className="w-5 h-5" />
+          </div>
+          <div className="text-sm text-gray-500">Saturday, Mar 6, 2022, 12:30 PM</div>
+        </header>
+
+        <main className="p-6">
+          <div className="max-w-2xl mx-auto">
+            <ProfileContent 
+              profile={profile}
+              formData={formData}
+              editMode={editMode}
+              onInputChange={handleInputChange}
+              onSave={handleSave}
+              onCancel={handleCancel}
+              setEditMode={setEditMode}
+            />
+          </div>
+        </main>
+      </div>
+    </div>
   );
 };
 

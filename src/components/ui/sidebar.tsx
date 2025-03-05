@@ -1,4 +1,3 @@
-
 "use client"
 
 import * as React from "react"
@@ -16,7 +15,7 @@ import {
   Users,
   X,
 } from "lucide-react"
-import { useMediaQuery } from "@/hooks/use-mobile"
+import { useMobile } from "@/hooks/use-mobile"
 
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
@@ -83,7 +82,7 @@ export function Sidebar({
   const [isToggled, setIsToggled] = useState(toggled)
   const [isRtl, setIsRtl] = useState(false)
   const [isBroken, setIsBroken] = useState(false)
-  const isMobile = useMediaQuery("(max-width: 768px)")
+  const isMobile = useMobile()
 
   React.useEffect(() => {
     if (collapsed !== undefined) {

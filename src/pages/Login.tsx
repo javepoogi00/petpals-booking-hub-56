@@ -37,7 +37,7 @@ const Login = () => {
         description: "You have successfully logged in.",
       });
       setIsLoading(false);
-      navigate('/');
+      navigate('/dashboard');
     }, 1500);
   };
 

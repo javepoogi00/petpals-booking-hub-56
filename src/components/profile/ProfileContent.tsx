@@ -39,8 +39,8 @@ const ProfileContent: React.FC<ProfileContentProps> = ({
       />
 
       <div className="p-6">
-        <div className="flex flex-col sm:flex-row gap-8">
-          <div className="sm:w-[200px]">
+        <div className="flex flex-col sm:flex-row gap-6">
+          <div className="sm:w-[150px] flex-shrink-0">
             <ProfileAvatar avatarUrl={profile.avatarUrl} name={profile.name} />
           </div>
           <div className="flex-1">

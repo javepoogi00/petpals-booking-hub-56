@@ -11,9 +11,9 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ avatarUrl, name }) => {
   return (
     <div className="flex flex-col items-center text-center">
       <div className="relative mb-2">
-        <div className="w-24 h-24 bg-pink-100 rounded-full flex items-center justify-center border-4 border-white shadow-sm">
+        <div className="w-20 h-20 bg-pink-100 rounded-full flex items-center justify-center border-4 border-white shadow-sm">
           <img 
-            src={avatarUrl || "/lovable-uploads/c999e0e9-f852-4128-a4c0-58740869d932.png"} 
+            src="/lovable-uploads/cc6dbebe-bad5-4ce4-9e43-a456b77aa317.png" 
             alt="Profile" 
             className="w-full h-full rounded-full object-cover" 
           />

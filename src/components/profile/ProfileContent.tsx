@@ -2,6 +2,7 @@
 import React from 'react';
 import ProfileAvatar from './ProfileAvatar';
 import ProfileForm from './ProfileForm';
+import ProfileHeader from './ProfileHeader';
 
 interface ProfileData {
   name: string;
@@ -31,20 +32,29 @@ const ProfileContent: React.FC<ProfileContentProps> = ({
   setEditMode
 }) => {
   return (
-    <div className="bg-[#f0e6cc] rounded-lg shadow-sm p-6">
-      <div className="flex flex-col gap-6">
-        <div className="flex items-start gap-6">
-          <ProfileAvatar avatarUrl={profile.avatarUrl} name={profile.name} />
-          <div className="flex-1">
-            <ProfileForm
-              profile={profile}
-              formData={formData}
-              editMode={editMode}
-              onInputChange={onInputChange}
-              onSave={onSave}
-              onCancel={onCancel}
-              setEditMode={setEditMode}
-            />
+    <div className="bg-white rounded-xl shadow-subtle border border-pink-100 hover:shadow-lg transition-shadow duration-300">
+      <ProfileHeader 
+        title="My Profile" 
+        description="Manage your personal information" 
+      />
+
+      <div className="p-6 md:p-8">
+        <div className="flex flex-col gap-8">
+          <div className="flex flex-col sm:flex-row gap-8">
+            <div className="sm:max-w-[180px]">
+              <ProfileAvatar avatarUrl={profile.avatarUrl} name={profile.name} />
+            </div>
+            <div className="flex-1">
+              <ProfileForm
+                profile={profile}
+                formData={formData}
+                editMode={editMode}
+                onInputChange={onInputChange}
+                onSave={onSave}
+                onCancel={onCancel}
+                setEditMode={setEditMode}
+              />
+            </div>
           </div>
         </div>
       </div>

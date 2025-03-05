@@ -1,6 +1,6 @@
 
 import React, { useEffect, useRef } from 'react';
-import { Calendar, ChevronRight, PawPrint, Shield, Clock } from 'lucide-react';
+import { Calendar, ChevronRight, PawPrint, Shield, Clock, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Hero = () => {
@@ -18,20 +18,20 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden">
+    <section className="pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden paw-pattern">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div 
             ref={contentRef}
             className="opacity-0 translate-y-8 transition-all duration-1000 delay-200"
           >
-            <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-primary/10 text-primary mb-6">
+            <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-coquette-100 text-coquette-700 mb-6">
               <PawPrint className="h-4 w-4 mr-2" />
               <span className="text-sm font-medium">Trusted by 50,000+ Pet Owners</span>
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-              <span className="gradient-text">Expert Care</span> For Your Furry Family
+              <span className="gradient-text">Pawsome Care</span> For Your Furry Family
             </h1>
             
             <p className="text-lg text-muted-foreground mb-8 max-w-lg text-balance">
@@ -43,6 +43,7 @@ const Hero = () => {
                 variant="primary" 
                 size="lg"
                 icon={<Calendar className="w-5 h-5" />}
+                className="bg-coquette-500 hover:bg-coquette-600"
               >
                 Book an Appointment
               </Button>
@@ -52,6 +53,7 @@ const Hero = () => {
                 size="lg"
                 icon={<ChevronRight className="w-5 h-5" />}
                 iconPosition="right"
+                className="border-coquette-300 text-coquette-600 hover:bg-coquette-50"
               >
                 Explore Services
               </Button>
@@ -59,8 +61,8 @@ const Hero = () => {
             
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
               <div className="flex items-center space-x-2">
-                <div className="flex-shrink-0 h-10 w-10 rounded-full bg-secondary flex items-center justify-center">
-                  <PawPrint className="h-5 w-5 text-primary" />
+                <div className="flex-shrink-0 h-10 w-10 rounded-full bg-coquette-100 flex items-center justify-center">
+                  <Heart className="h-5 w-5 text-coquette-600" />
                 </div>
                 <div>
                   <p className="text-sm font-medium">Premium Care</p>
@@ -69,8 +71,8 @@ const Hero = () => {
               </div>
               
               <div className="flex items-center space-x-2">
-                <div className="flex-shrink-0 h-10 w-10 rounded-full bg-secondary flex items-center justify-center">
-                  <Shield className="h-5 w-5 text-primary" />
+                <div className="flex-shrink-0 h-10 w-10 rounded-full bg-coquette-100 flex items-center justify-center">
+                  <Shield className="h-5 w-5 text-coquette-600" />
                 </div>
                 <div>
                   <p className="text-sm font-medium">Trusted Pros</p>
@@ -79,8 +81,8 @@ const Hero = () => {
               </div>
               
               <div className="flex items-center space-x-2">
-                <div className="flex-shrink-0 h-10 w-10 rounded-full bg-secondary flex items-center justify-center">
-                  <Clock className="h-5 w-5 text-primary" />
+                <div className="flex-shrink-0 h-10 w-10 rounded-full bg-coquette-100 flex items-center justify-center">
+                  <Clock className="h-5 w-5 text-coquette-600" />
                 </div>
                 <div>
                   <p className="text-sm font-medium">Easy Booking</p>
@@ -92,7 +94,7 @@ const Hero = () => {
           
           <div className="relative">
             <div 
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] rounded-full bg-gradient-to-br from-primary/20 to-secondary/30 blur-3xl -z-10"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] rounded-full bg-gradient-to-br from-coquette-200 to-coquette-100 blur-3xl -z-10"
               aria-hidden="true"
             ></div>
             
@@ -100,17 +102,17 @@ const Hero = () => {
               ref={imageRef}
               src="https://images.unsplash.com/photo-1535268647677-300dbf3d78d1"
               alt="Happy cat being groomed"
-              className="w-full h-auto max-w-md mx-auto rounded-2xl shadow-xl object-cover opacity-0 translate-y-8 transition-all duration-1000 delay-300"
+              className="w-full h-auto max-w-md mx-auto rounded-2xl shadow-xl object-cover opacity-0 translate-y-8 transition-all duration-1000 delay-300 border-4 border-white"
             />
             
             <div className="absolute -bottom-6 -right-6 glass-effect rounded-xl p-4 shadow-subtle animate-float">
               <div className="flex items-center space-x-3">
-                <div className="h-12 w-12 rounded-full bg-primary flex items-center justify-center">
+                <div className="h-12 w-12 rounded-full bg-coquette-500 flex items-center justify-center">
                   <Calendar className="h-6 w-6 text-white" />
                 </div>
                 <div>
                   <p className="text-sm font-medium">Next Available</p>
-                  <p className="text-xs font-bold text-primary">Today, 2:30 PM</p>
+                  <p className="text-xs font-bold text-coquette-600">Today, 2:30 PM</p>
                 </div>
               </div>
             </div>

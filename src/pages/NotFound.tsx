@@ -15,10 +15,10 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-secondary/30 p-4">
-      <div className="max-w-md w-full text-center bg-white rounded-2xl shadow-subtle p-8 animate-fade-in">
-        <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-          <PawPrint className="h-8 w-8 text-primary" />
+    <div className="min-h-screen flex items-center justify-center bg-coquette-50 p-4 paw-pattern">
+      <div className="max-w-md w-full text-center bg-white rounded-2xl shadow-subtle p-8 animate-fade-in border border-coquette-100">
+        <div className="w-16 h-16 bg-coquette-100 rounded-full flex items-center justify-center mx-auto mb-6">
+          <PawPrint className="h-8 w-8 text-coquette-600" />
         </div>
         <h1 className="text-4xl font-bold mb-2">404</h1>
         <p className="text-xl font-medium mb-2">Oops! Page not found</p>
@@ -27,8 +27,8 @@ const NotFound = () => {
         </p>
         <Link to="/">
           <Button 
-            variant="default" 
-            className="mx-auto"
+            variant="primary" 
+            className="mx-auto bg-coquette-500 hover:bg-coquette-600"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Return to Home

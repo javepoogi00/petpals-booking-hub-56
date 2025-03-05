@@ -15,10 +15,10 @@ type ButtonProps = {
 };
 
 const buttonVariants = {
-  primary: 'bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary/50',
+  primary: 'bg-coquette-500 text-white hover:bg-coquette-600 focus:ring-coquette-500/50',
   secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/90 focus:ring-secondary/50',
-  outline: 'border border-input bg-transparent hover:bg-muted focus:ring-primary/50',
-  ghost: 'bg-transparent hover:bg-muted focus:ring-primary/50',
+  outline: 'border border-input bg-transparent hover:bg-muted focus:ring-coquette-500/50',
+  ghost: 'bg-transparent hover:bg-muted focus:ring-coquette-500/50',
   accent: 'bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-accent/50',
 };
 

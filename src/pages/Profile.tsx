@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Camera, CheckCircle, Edit, Save, User, X } from 'lucide-react';
+import { Camera, CheckCircle, Edit, Save, User, X, Sparkles, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -44,13 +44,18 @@ const Profile = () => {
   return (
     <>
       <Navbar />
-      <main className="pt-20 min-h-screen bg-gradient-to-b from-coquette-50 to-white pb-12">
+      <main className="pt-20 min-h-screen bg-gradient-to-b from-pink-50 to-white pb-12">
         <div className="container max-w-4xl mx-auto px-4 py-8">
-          <div className="bg-white rounded-xl shadow-subtle border border-coquette-100 overflow-hidden">
+          <div className="bg-white rounded-xl shadow-subtle border border-pink-100 hover:shadow-lg transition-shadow duration-300">
             {/* Header */}
-            <div className="bg-gradient-to-r from-coquette-400 to-coquette-600 py-6 px-6 text-white">
-              <h1 className="text-2xl font-semibold">My Profile</h1>
-              <p className="opacity-90 mt-1">Manage your personal information</p>
+            <div className="bg-gradient-to-r from-coquette-400 to-coquette-500 py-6 px-6 text-white rounded-t-xl relative overflow-hidden">
+              <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"20\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cpath d=\"M0 0h4v4H0V0zm8 0h4v4H8V0zm8 0h4v4h-4V0zM4 4h4v4H4V4zm8 0h4v4h-4V4zm8 0h4v4h-4V4zM0 8h4v4H0V8zm8 0h4v4H8V8zm8 0h4v4h-4V8zM4 12h4v4H4v-4zm8 0h4v4h-4v-4zm8 0h4v4h-4v-4z\" fill=\"%23FFFFFF\" fill-opacity=\"0.05\" fill-rule=\"evenodd\"/%3E%3C/svg%3E')] opacity-50"></div>
+              <div className="relative">
+                <h1 className="text-2xl font-semibold flex items-center gap-2">
+                  My Profile <Sparkles className="w-5 h-5 animate-pulse" />
+                </h1>
+                <p className="opacity-90 mt-1">Manage your personal information</p>
+              </div>
             </div>
 
             {/* Profile content */}
@@ -58,8 +63,8 @@ const Profile = () => {
               <div className="flex flex-col md:flex-row gap-8">
                 {/* Avatar section */}
                 <div className="flex flex-col items-center text-center">
-                  <div className="relative">
-                    <div className="w-32 h-32 bg-coquette-100 rounded-full flex items-center justify-center border-4 border-white shadow-md">
+                  <div className="relative group">
+                    <div className="w-32 h-32 bg-gradient-to-br from-coquette-100 to-coquette-200 rounded-full flex items-center justify-center border-4 border-white shadow-md transition-transform duration-300 hover:scale-105">
                       {profile.avatarUrl ? (
                         <img 
                           src={profile.avatarUrl} 
@@ -67,20 +72,22 @@ const Profile = () => {
                           className="w-full h-full rounded-full object-cover" 
                         />
                       ) : (
-                        <User className="w-16 h-16 text-coquette-300" />
+                        <User className="w-16 h-16 text-coquette-400" />
                       )}
                     </div>
                     <button 
-                      className="absolute bottom-0 right-0 bg-coquette-500 text-white rounded-full p-2 shadow-md hover:bg-coquette-600 transition-colors"
+                      className="absolute bottom-0 right-0 bg-coquette-500 text-white rounded-full p-2 shadow-lg hover:bg-coquette-600 transition-colors duration-300 hover:scale-110"
                       aria-label="Change profile picture"
                     >
                       <Camera className="w-4 h-4" />
                     </button>
                   </div>
-                  <h2 className="font-semibold text-xl mt-4">
+                  <h2 className="font-semibold text-xl mt-4 text-coquette-800">
                     {profile.name || 'Add your name'}
                   </h2>
-                  <p className="text-muted-foreground">Pet Parent</p>
+                  <p className="text-coquette-500 flex items-center gap-1">
+                    Pet Parent <Heart className="w-4 h-4 text-coquette-400 animate-bounce" />
+                  </p>
                 </div>
 
                 {/* Profile details */}
@@ -201,22 +208,27 @@ const Profile = () => {
             </div>
           </div>
 
-          {/* Pet profiles section can be added here in the future */}
-          <div className="mt-8 bg-white rounded-xl shadow-subtle border border-coquette-100 overflow-hidden">
-            <div className="bg-gradient-to-r from-coquette-400 to-coquette-600 py-4 px-6 text-white">
-              <h2 className="text-xl font-semibold">Account Settings</h2>
+          {/* Account settings card */}
+          <div className="mt-8 bg-white rounded-xl shadow-subtle border border-pink-100 overflow-hidden hover:shadow-lg transition-shadow duration-300">
+            <div className="bg-gradient-to-r from-coquette-400 to-coquette-500 py-4 px-6 text-white rounded-t-xl relative overflow-hidden">
+              <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"20\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cpath d=\"M0 0h4v4H0V0zm8 0h4v4H8V0zm8 0h4v4h-4V0zM4 4h4v4H4V4zm8 0h4v4h-4V4zm8 0h4v4h-4V4zM0 8h4v4H0V8zm8 0h4v4H8V8zm8 0h4v4h-4V8zM4 12h4v4H4v-4zm8 0h4v4h-4v-4zm8 0h4v4h-4v-4z\" fill=\"%23FFFFFF\" fill-opacity=\"0.05\" fill-rule=\"evenodd\"/%3E%3C/svg%3E')] opacity-50"></div>
+              <div className="relative">
+                <h2 className="text-xl font-semibold flex items-center gap-2">
+                  Account Settings <Sparkles className="w-4 h-4 animate-pulse" />
+                </h2>
+              </div>
             </div>
             <div className="p-6">
-              <p className="text-muted-foreground mb-4">Manage your account preferences and settings</p>
+              <p className="text-coquette-600 mb-4">Manage your account preferences and settings</p>
               
-              <div className="space-y-4">
-                <Button variant="outline" className="w-full justify-start text-left">
+              <div className="space-y-3">
+                <Button variant="outline" className="w-full justify-start text-left hover:bg-pink-50 hover:text-coquette-600 border-coquette-100">
                   Change Password
                 </Button>
-                <Button variant="outline" className="w-full justify-start text-left">
+                <Button variant="outline" className="w-full justify-start text-left hover:bg-pink-50 hover:text-coquette-600 border-coquette-100">
                   Notification Preferences
                 </Button>
-                <Button variant="outline" className="w-full justify-start text-left">
+                <Button variant="outline" className="w-full justify-start text-left hover:bg-pink-50 hover:text-coquette-600 border-coquette-100">
                   Privacy Settings
                 </Button>
               </div>

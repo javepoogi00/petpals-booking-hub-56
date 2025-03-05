@@ -13,7 +13,7 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ avatarUrl, name }) => {
       <div className="relative mb-2">
         <div className="w-20 h-20 bg-pink-100 rounded-full flex items-center justify-center border-4 border-white shadow-sm">
           <img 
-            src="/lovable-uploads/e3aaa3cc-a236-4e01-b5a6-3a21d48fc0a3.png" 
+            src="/lovable-uploads/dd3b7da4-5b1e-4202-826f-6283630aebe6.png" 
             alt="Profile" 
             className="w-full h-full rounded-full object-cover" 
           />

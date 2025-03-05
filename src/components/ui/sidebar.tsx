@@ -1,152 +1,191 @@
-// Update the import to use the correct hook name
-import { useIsMobile } from "@/hooks/use-mobile";
-import React, { useState } from 'react';
-import {
-  Home,
-  Calendar,
-  Users,
-  BarChart,
-  Settings,
-  HelpCircle,
-  Menu,
-  X,
-  ChevronDown,
-  ChevronUp,
-  User
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import React from 'react';
 import { cn } from '@/lib/utils';
-import { Logo } from '@/components/ui/logo';
+import { Button } from '@/components/ui/button';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { Link, useLocation } from 'react-router-dom';
+import { 
+  Home, 
+  Calendar, 
+  Settings, 
+  CreditCard, 
+  User, 
+  Bell, 
+  Menu, 
+  X,
+  LogOut,
+  HelpCircle,
+  Heart,
+  Paw,
+  MessageSquare,
+  ShoppingBag,
+  BarChart
+} from 'lucide-react';
 
 interface SidebarProps {
+  className?: string;
   isOpen: boolean;
-  onClose: () => void;
+  toggleSidebar: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
-  const isMobile = useIsMobile();
+export function Sidebar({ className, isOpen, toggleSidebar }: SidebarProps) {
   const location = useLocation();
-  const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
-
-  const toggleAccountMenu = () => {
-    setIsAccountMenuOpen(!isAccountMenuOpen);
+  
+  const isActive = (path: string) => {
+    return location.pathname === path;
   };
 
-  const sidebarItems = [
-    {
-      href: '/dashboard',
-      icon: Home,
-      label: 'Dashboard',
-    },
-    {
-      href: '/appointments',
-      icon: Calendar,
-      label: 'Appointments',
-    },
-    {
-      href: '/billing',
-      icon: BarChart,
-      label: 'Billing',
-    },
-    {
-      href: '/users',
-      icon: Users,
-      label: 'Users',
-    },
-    {
-      href: '/settings',
-      icon: Settings,
-      label: 'Settings',
-    },
-    {
-      href: '/help',
-      icon: HelpCircle,
-      label: 'Help',
-    },
+  const sidebarLinks = [
+    { name: 'Dashboard', path: '/dashboard', icon: <Home className="h-5 w-5" /> },
+    { name: 'Appointments', path: '/appointments', icon: <Calendar className="h-5 w-5" /> },
+    { name: 'My Pets', path: '/pets', icon: <Paw className="h-5 w-5" /> },
+    { name: 'Messages', path: '/messages', icon: <MessageSquare className="h-5 w-5" /> },
+    { name: 'Shop', path: '/shop', icon: <ShoppingBag className="h-5 w-5" /> },
+    { name: 'Billing', path: '/billing', icon: <CreditCard className="h-5 w-5" /> },
+    { name: 'Health Records', path: '/health-records', icon: <BarChart className="h-5 w-5" /> },
   ];
 
-  const activeSidebarItem = sidebarItems.find(item => location.pathname === item.href);
+  const bottomLinks = [
+    { name: 'Help & Support', path: '/support', icon: <HelpCircle className="h-5 w-5" /> },
+    { name: 'Settings', path: '/settings', icon: <Settings className="h-5 w-5" /> },
+  ];
 
   return (
-    <aside
-      className={cn(
-        "fixed inset-y-0 left-0 z-40 w-72 flex-col bg-sidebar border-r border-sidebar-border shadow-lg transition-transform duration-300 ease-in-out",
-        isOpen ? 'translate-x-0' : '-translate-x-full',
-        isMobile ? 'top-0' : 'top-16 mt-0',
+    <>
+      {/* Mobile overlay */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={toggleSidebar}
+        />
       )}
-    >
-      {/* Sidebar Header */}
-      <div className="flex items-center justify-between py-4 px-6">
-        <Logo size="sm" linkTo="/dashboard" />
-        {isMobile && (
-          <Button variant="ghost" size="icon" onClick={onClose}>
-            <X className="h-5 w-5" />
-          </Button>
+      
+      {/* Sidebar */}
+      <aside
+        className={cn(
+          "fixed top-0 bottom-0 left-0 z-50 flex flex-col border-r border-sidebar-border bg-sidebar transition-transform duration-300 ease-in-out",
+          isOpen ? "translate-x-0" : "-translate-x-full",
+          "lg:translate-x-0 lg:z-0",
+          className
         )}
-      </div>
-
-      {/* Sidebar Content */}
-      <div className="flex flex-col justify-between h-[calc(100vh-8rem)]">
-        <nav className="flex-1">
-          <ul className="space-y-1">
-            {sidebarItems.map((item) => (
-              <li key={item.href}>
-                <NavLink
-                  to={item.href}
-                  className={({ isActive }) =>
-                    cn(
-                      "flex items-center py-3 px-6 text-sm font-medium rounded-md transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
-                      isActive
-                        ? "bg-sidebar-primary text-sidebar-primary-foreground"
-                        : "text-sidebar-foreground",
-                    )
-                  }
-                >
-                  <item.icon className="w-4 h-4 mr-2" />
-                  {item.label}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        {/* Account Menu */}
-        <div className="border-t border-sidebar-border py-3">
-          <div className="px-6">
-            <Button variant="ghost" className="w-full justify-between" onClick={toggleAccountMenu}>
-              <div className="flex items-center gap-2">
-                <User className="w-4 h-4" />
-                Account
-              </div>
-              {isAccountMenuOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-            </Button>
-          </div>
-          {isAccountMenuOpen && (
-            <div className="py-2">
-              <ul>
-                <li>
-                  <Link to="/profile" className="block py-2 px-6 text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
-                    Profile
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/settings" className="block py-2 px-6 text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
-                    Settings
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/logout" className="block py-2 px-6 text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
-                    Logout
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          )}
+      >
+        {/* Mobile close button */}
+        <div className="absolute right-2 top-2 lg:hidden">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={toggleSidebar}
+            className="text-sidebar-foreground hover:bg-sidebar-accent/10"
+          >
+            <X className="h-5 w-5" />
+            <span className="sr-only">Close sidebar</span>
+          </Button>
         </div>
-      </div>
-    </aside>
-  );
-};
 
-export default Sidebar;
+        {/* Logo and branding */}
+        <div className="flex h-14 items-center border-b border-sidebar-border px-4">
+          <Link to="/" className="flex items-center gap-2">
+            <div className="rounded-full bg-gradient-to-r from-pink-500 to-purple-600 p-1">
+              <Heart className="h-5 w-5 text-white" />
+            </div>
+            <span className="font-semibold text-lg text-sidebar-foreground">FurCare</span>
+          </Link>
+        </div>
+
+        {/* User profile */}
+        <div className="flex items-center gap-2 border-b border-sidebar-border p-4">
+          <Avatar size="sm">
+            <AvatarImage src="/lovable-uploads/c999e0e9-f852-4128-a4c0-58740869d932.png" alt="User" />
+            <AvatarFallback>U</AvatarFallback>
+          </Avatar>
+          <div className="flex flex-col">
+            <span className="text-sm font-medium text-sidebar-foreground">Sarah Johnson</span>
+            <Link to="/profile" className="text-xs text-sidebar-foreground/60 hover:text-sidebar-primary">
+              View Profile
+            </Link>
+          </div>
+        </div>
+
+        {/* Main navigation */}
+        <ScrollArea className="flex-1 py-2">
+          <nav className="grid gap-1 px-2">
+            {sidebarLinks.map((link) => (
+              <Tooltip key={link.path} delayDuration={0}>
+                <TooltipTrigger asChild>
+                  <Link to={link.path}>
+                    <Button
+                      variant={isActive(link.path) ? "sidebar" : "ghost"}
+                      size="sm"
+                      className={cn(
+                        "w-full justify-start",
+                        isActive(link.path) 
+                          ? "bg-sidebar-accent text-sidebar-accent-foreground" 
+                          : "text-sidebar-foreground hover:bg-sidebar-accent/10 hover:text-sidebar-accent-foreground"
+                      )}
+                    >
+                      {link.icon}
+                      <span className="ml-2">{link.name}</span>
+                    </Button>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent side="right" className="border-sidebar-border bg-sidebar text-sidebar-foreground">
+                  {link.name}
+                </TooltipContent>
+              </Tooltip>
+            ))}
+          </nav>
+        </ScrollArea>
+
+        {/* Bottom links */}
+        <div className="grid gap-1 px-2 py-2 border-t border-sidebar-border">
+          {bottomLinks.map((link) => (
+            <Tooltip key={link.path} delayDuration={0}>
+              <TooltipTrigger asChild>
+                <Link to={link.path}>
+                  <Button
+                    variant={isActive(link.path) ? "sidebar" : "ghost"}
+                    size="sm"
+                    className={cn(
+                      "w-full justify-start",
+                      isActive(link.path) 
+                        ? "bg-sidebar-accent text-sidebar-accent-foreground" 
+                        : "text-sidebar-foreground hover:bg-sidebar-accent/10 hover:text-sidebar-accent-foreground"
+                    )}
+                  >
+                    {link.icon}
+                    <span className="ml-2">{link.name}</span>
+                  </Button>
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent side="right" className="border-sidebar-border bg-sidebar text-sidebar-foreground">
+                {link.name}
+              </TooltipContent>
+            </Tooltip>
+          ))}
+
+          {/* Logout button */}
+          <Button
+            variant="ghost"
+            size="sm"
+            className="w-full justify-start text-sidebar-foreground hover:bg-sidebar-accent/10 hover:text-sidebar-accent-foreground"
+          >
+            <LogOut className="h-5 w-5" />
+            <span className="ml-2">Logout</span>
+          </Button>
+        </div>
+      </aside>
+
+      {/* Toggle button for mobile */}
+      <Button
+        variant="outline"
+        size="icon"
+        className="fixed bottom-4 right-4 z-40 rounded-full shadow-lg lg:hidden"
+        onClick={toggleSidebar}
+      >
+        <Menu className="h-5 w-5" />
+        <span className="sr-only">Toggle sidebar</span>
+      </Button>
+    </>
+  );
+}

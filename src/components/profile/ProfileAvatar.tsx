@@ -12,15 +12,11 @@ const ProfileAvatar: React.FC<ProfileAvatarProps> = ({ avatarUrl, name }) => {
     <div className="flex flex-col items-center text-center">
       <div className="relative mb-2">
         <div className="w-24 h-24 bg-pink-100 rounded-full flex items-center justify-center border-4 border-white shadow-sm">
-          {avatarUrl ? (
-            <img 
-              src={avatarUrl} 
-              alt="Profile" 
-              className="w-full h-full rounded-full object-cover" 
-            />
-          ) : (
-            <User className="w-12 h-12 text-pink-400" />
-          )}
+          <img 
+            src={avatarUrl || "/lovable-uploads/c999e0e9-f852-4128-a4c0-58740869d932.png"} 
+            alt="Profile" 
+            className="w-full h-full rounded-full object-cover" 
+          />
         </div>
         <button 
           className="absolute bottom-0 right-0 bg-pink-500 text-white rounded-full p-1.5 shadow-lg hover:bg-pink-600 transition-colors duration-300"

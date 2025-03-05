@@ -1,9 +1,10 @@
+
 import React, { useState } from 'react';
 import Navbar from '@/components/layout/Navbar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { 
-  Search, Filter, CreditCard, DollarSign, 
+  Search, Filter, CreditCard, PhilippinePeso, 
   FileText, CheckCircle, AlertCircle, Calendar,
   Download, Eye
 } from 'lucide-react';
@@ -143,7 +144,7 @@ const Billing = () => {
                       className="pl-9"
                     />
                   </div>
-                  <Button variant="outline" size="icon">
+                  <Button variant="outline" size="sm">
                     <Filter className="h-4 w-4" />
                   </Button>
                 </div>
@@ -164,7 +165,7 @@ const Billing = () => {
                               ? 'bg-green-100' 
                               : 'bg-yellow-100'
                           }`}>
-                            <FileText className={`h-5 w-5 ${
+                            <PhilippinePeso className={`h-5 w-5 ${
                               invoice.status === 'paid' 
                                 ? 'text-green-600' 
                                 : 'text-yellow-600'

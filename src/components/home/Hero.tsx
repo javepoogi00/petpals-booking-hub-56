@@ -119,7 +119,7 @@ const Hero = () => {
               ref={imageRef}
               src="/lovable-uploads/40f4d127-2348-4e7b-bf84-b10d0db4d95c.png"
               alt="Cat with blue towel after bath holding a sponge with rubber ducks"
-              className="w-full h-auto max-w-md mx-auto rounded-2xl shadow-xl object-cover opacity-0 translate-y-8 transition-all duration-1000 delay-300 border-4 border-white"
+              className="w-3/4 h-auto max-w-xs mx-auto rounded-2xl shadow-xl object-cover opacity-0 translate-y-8 transition-all duration-1000 delay-300 border-4 border-white"
             />
             
             <div className="absolute -bottom-6 -right-6 glass-effect rounded-xl p-4 shadow-subtle animate-float">

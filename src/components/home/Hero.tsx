@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import { Calendar, ChevronRight, PawPrint, Shield, Clock, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -24,8 +25,13 @@ const Hero = () => {
 
   const handleExploreServices = () => {
     console.log('Explore services clicked');
-    // You can navigate to services section or page
-    document.getElementById('services-section')?.scrollIntoView({ behavior: 'smooth' });
+    // Scroll to services section
+    const servicesSection = document.getElementById('services-section');
+    if (servicesSection) {
+      servicesSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      console.error('Services section not found');
+    }
   };
 
   return (
@@ -62,7 +68,7 @@ const Hero = () => {
               
               <button 
                 onClick={handleExploreServices}
-                className="inline-flex items-center justify-center px-6 py-3 rounded-full border-2 border-pink-300 text-pink-500 font-medium hover:bg-pink-50 transition-all duration-200 relative overflow-hidden"
+                className="inline-flex items-center justify-center px-6 py-3 rounded-full border-2 border-pink-300 text-pink-500 font-medium hover:bg-pink-50 transition-all duration-200 relative overflow-hidden cursor-pointer"
               >
                 <span className="relative z-10">Explore Services</span>
                 <ChevronRight className="w-5 h-5 ml-2 text-pink-500 relative z-10" />

@@ -17,6 +17,18 @@ const Hero = () => {
     }
   }, []);
 
+  const handleBookAppointment = () => {
+    console.log('Book appointment clicked');
+    // Navigate to appointment booking page
+    window.location.href = '/appointments';
+  };
+
+  const handleExploreServices = () => {
+    console.log('Explore services clicked');
+    // You can navigate to services section or page
+    document.getElementById('services-section')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section className="pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden paw-pattern">
       <div className="container mx-auto px-4 md:px-6">
@@ -42,20 +54,21 @@ const Hero = () => {
               <Button 
                 variant="primary" 
                 size="lg"
-                icon={<Calendar className="w-5 h-5" />}
-                className="bg-coquette-500 hover:bg-coquette-600"
+                onClick={handleBookAppointment}
+                className="bg-coquette-500 hover:bg-coquette-600 rounded-full"
               >
+                <Calendar className="w-5 h-5 mr-2" />
                 Book an Appointment
               </Button>
               
               <Button 
                 variant="outline" 
                 size="lg"
-                icon={<ChevronRight className="w-5 h-5" />}
-                iconPosition="right"
-                className="border-coquette-300 text-coquette-600 hover:bg-coquette-50"
+                onClick={handleExploreServices}
+                className="border-coquette-300 text-coquette-600 hover:bg-coquette-50 rounded-full"
               >
                 Explore Services
+                <ChevronRight className="w-5 h-5 ml-2" />
               </Button>
             </div>
             

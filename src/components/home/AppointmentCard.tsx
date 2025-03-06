@@ -81,8 +81,12 @@ const AppointmentCard = ({
       </ul>
       
       <Button 
-        variant={color === 'primary' ? 'primary' : 'accent'}
-        className="w-full justify-center font-display"
+        className={cn(
+          "w-full justify-center font-medium text-white rounded-full py-3",
+          color === 'primary' 
+            ? 'bg-[#FF4E93] hover:bg-[#FF3A85]' 
+            : 'bg-[#0B8FF9] hover:bg-[#0071D5]'
+        )}
       >
         Book {title} ✨
       </Button>

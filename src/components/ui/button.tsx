@@ -49,7 +49,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
       type={type}
       className={cn(
         baseStyles,
-        buttonVariants[variant],
+        // Only apply the variant styles if no custom background is provided in className
+        !className?.includes('bg-') ? buttonVariants[variant] : '',
         sizeStyles[size],
         disabledStyles,
         className

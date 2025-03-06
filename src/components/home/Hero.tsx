@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { Calendar, ChevronRight, PawPrint, Shield, Clock, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -61,15 +60,14 @@ const Hero = () => {
                 Book an Appointment
               </Button>
               
-              <Button 
-                variant="outline" 
-                size="lg"
+              <button 
                 onClick={handleExploreServices}
-                className="border-2 border-pink-300 text-pink-500 hover:bg-pink-50 rounded-full"
+                className="inline-flex items-center justify-center px-6 py-3 rounded-full border-2 border-pink-300 text-pink-500 font-medium hover:bg-pink-50 transition-all duration-200 relative overflow-hidden"
               >
-                <span>Explore Services</span>
-                <ChevronRight className="w-5 h-5 ml-2 text-pink-500" />
-              </Button>
+                <span className="relative z-10">Explore Services</span>
+                <ChevronRight className="w-5 h-5 ml-2 text-pink-500 relative z-10" />
+                <div className="absolute inset-0 bg-gradient-to-r from-pink-100/40 to-pink-200/40 rounded-full"></div>
+              </button>
             </div>
             
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">

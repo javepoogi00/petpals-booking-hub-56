@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 
 type ButtonProps = {
@@ -22,7 +22,7 @@ const buttonVariants = {
   accent: 'bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-accent/50',
 };
 
-const Button = ({
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
   children,
   variant = 'primary',
   size = 'md',
@@ -32,7 +32,7 @@ const Button = ({
   disabled = false,
   icon,
   iconPosition = 'left',
-}: ButtonProps) => {
+}, ref) => {
   const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2';
   
   const sizeStyles = {
@@ -45,6 +45,7 @@ const Button = ({
   
   return (
     <button
+      ref={ref}
       type={type}
       className={cn(
         baseStyles,
@@ -61,7 +62,9 @@ const Button = ({
       {icon && iconPosition === 'right' && <span className="shrink-0">{icon}</span>}
     </button>
   );
-};
+});
+
+Button.displayName = 'Button';
 
 export { Button, buttonVariants };
 export default Button;

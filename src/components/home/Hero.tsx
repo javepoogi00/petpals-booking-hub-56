@@ -65,10 +65,10 @@ const Hero = () => {
                 variant="outline" 
                 size="lg"
                 onClick={handleExploreServices}
-                className="border-coquette-300 text-coquette-600 hover:bg-coquette-50 rounded-full"
+                className="border-2 border-pink-300 text-pink-500 hover:bg-pink-50 rounded-full"
               >
-                Explore Services
-                <ChevronRight className="w-5 h-5 ml-2" />
+                <span>Explore Services</span>
+                <ChevronRight className="w-5 h-5 ml-2 text-pink-500" />
               </Button>
             </div>
             

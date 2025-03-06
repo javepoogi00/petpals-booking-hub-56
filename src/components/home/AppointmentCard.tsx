@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '../ui/button';
@@ -19,6 +20,11 @@ const AppointmentCard = ({
   color,
   className,
 }: AppointmentCardProps) => {
+  const handleFeatureClick = (feature: string) => {
+    console.log(`Feature clicked: ${feature}`);
+    // This could later be expanded to show feature details or navigate to a specific page
+  };
+
   return (
     <div 
       className={cn(
@@ -46,7 +52,11 @@ const AppointmentCard = ({
       
       <ul className="space-y-2 mb-6">
         {features.map((feature, index) => (
-          <li key={index} className="flex items-start">
+          <li 
+            key={index} 
+            className="flex items-start cursor-pointer group"
+            onClick={() => handleFeatureClick(feature)}
+          >
             <svg 
               className={cn(
                 "mr-2 h-5 w-5 mt-0.5",
@@ -58,7 +68,14 @@ const AppointmentCard = ({
             >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
-            <span className="text-sm">{feature}</span>
+            <span className={cn(
+              "text-sm transition-colors duration-200",
+              color === 'primary' 
+                ? 'group-hover:text-[#8B5CF6] group-hover:font-medium' 
+                : 'group-hover:text-[#F97316] group-hover:font-medium'
+            )}>
+              {feature}
+            </span>
           </li>
         ))}
       </ul>

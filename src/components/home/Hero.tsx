@@ -117,8 +117,8 @@ const Hero = () => {
             
             <img
               ref={imageRef}
-              src="/lovable-uploads/de515ac8-a45a-4764-b88c-f5c9a6f3226a.png"
-              alt="Cat family with mother cat and kittens in a wooden frame with flowers"
+              src="/lovable-uploads/40f4d127-2348-4e7b-bf84-b10d0db4d95c.png"
+              alt="Cat with blue towel after bath holding a sponge with rubber ducks"
               className="w-full h-auto max-w-md mx-auto rounded-2xl shadow-xl object-cover opacity-0 translate-y-8 transition-all duration-1000 delay-300 border-4 border-white"
             />
             

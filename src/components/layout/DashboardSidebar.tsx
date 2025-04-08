@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -146,7 +145,7 @@ export function DashboardSidebar({ className, expanded = true }: SidebarProps) {
     return (
       <Drawer>
         <DrawerTrigger asChild>
-          <Button variant="outline" size="icon" className="ml-2">
+          <Button variant="outline" size="sm">
             <PawPrint className="h-5 w-5" />
           </Button>
         </DrawerTrigger>

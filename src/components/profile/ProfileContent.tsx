@@ -2,7 +2,6 @@
 import React from 'react';
 import ProfileAvatar from './ProfileAvatar';
 import ProfileForm from './ProfileForm';
-import ProfileHeader from './ProfileHeader';
 
 interface ProfileData {
   name: string;
@@ -33,11 +32,6 @@ const ProfileContent: React.FC<ProfileContentProps> = ({
 }) => {
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-100">
-      <ProfileHeader 
-        title="My Profile" 
-        description="Manage your personal information" 
-      />
-
       <div className="p-6">
         <div className="flex flex-col sm:flex-row gap-6">
           <div className="sm:w-[150px] flex-shrink-0">

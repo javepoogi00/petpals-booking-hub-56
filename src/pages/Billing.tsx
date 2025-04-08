@@ -4,19 +4,38 @@ import { DashboardSidebar } from "@/components/layout/DashboardSidebar";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { CreditCard, CheckCircle, AlertCircle } from "lucide-react";
+import { CreditCard, CheckCircle, AlertCircle, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function Billing() {
   const [activeTab, setActiveTab] = useState("payment-methods");
+  const [showGcashQR, setShowGcashQR] = useState(false);
   const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    navigate(-1);
+  };
+
+  const toggleGcashQR = () => {
+    setShowGcashQR(!showGcashQR);
+  };
 
   return (
     <div className="flex h-screen bg-gray-50">
       <DashboardSidebar />
       <div className="flex-1 overflow-auto">
         <div className="container mx-auto p-6">
-          <h1 className="text-3xl font-bold mb-6 text-coquette-800">Billing</h1>
+          <div className="flex items-center mb-6">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={handleBackClick} 
+              className="mr-2"
+            >
+              <ArrowLeft className="h-5 w-5 text-coquette-600" />
+            </Button>
+            <h1 className="text-3xl font-bold text-coquette-800">Billing</h1>
+          </div>
           
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="mb-6">
@@ -66,13 +85,43 @@ export default function Billing() {
                       <div className="bg-gray-100 p-4 rounded-md">
                         <p className="text-sm text-gray-600">Connect your GCash account for fast and secure payments. Perfect for local transactions.</p>
                       </div>
-                      <div className="flex justify-center">
-                        <img src="https://www.gcash.com/wp-content/uploads/2021/07/GCash_Logo.png" alt="GCash" className="h-10" />
-                      </div>
+                      
+                      {showGcashQR ? (
+                        <div className="flex flex-col items-center">
+                          <img 
+                            src="/lovable-uploads/638208d1-4cca-4479-9b44-88efb4b56cec.png" 
+                            alt="GCash QR Code" 
+                            className="h-64 mb-4" 
+                          />
+                          <div className="text-center mb-4">
+                            <p className="text-sm text-gray-500">Transfer fees may apply.</p>
+                            <p className="font-medium">RO***E BI***A S.</p>
+                            <p className="text-sm text-gray-500">Mobile No.: 093• ••••264</p>
+                            <p className="text-sm text-gray-500">User ID: •••••••••••WCOAOK</p>
+                          </div>
+                          <Button 
+                            onClick={toggleGcashQR} 
+                            className="bg-blue-500 hover:bg-blue-600 text-white"
+                          >
+                            Hide QR Code
+                          </Button>
+                        </div>
+                      ) : (
+                        <div className="flex justify-center">
+                          <img src="https://www.gcash.com/wp-content/uploads/2021/07/GCash_Logo.png" alt="GCash" className="h-10" />
+                        </div>
+                      )}
                     </div>
                   </CardContent>
                   <CardFooter>
-                    <Button className="w-full bg-blue-500 hover:bg-blue-600">Connect GCash</Button>
+                    {!showGcashQR && (
+                      <Button 
+                        className="w-full bg-blue-500 hover:bg-blue-600"
+                        onClick={toggleGcashQR}
+                      >
+                        Show GCash QR Code
+                      </Button>
+                    )}
                   </CardFooter>
                 </Card>
               </div>

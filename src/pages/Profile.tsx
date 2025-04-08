@@ -1,7 +1,7 @@
 
 import Sidebar from "@/components/layout/Sidebar";
-import { ProfileHeader } from "@/components/profile/ProfileHeader";
-import { ProfileContent } from "@/components/profile/ProfileContent";
+import ProfileHeader from "@/components/profile/ProfileHeader";
+import ProfileContent from "@/components/profile/ProfileContent";
 
 export default function Profile() {
   return (

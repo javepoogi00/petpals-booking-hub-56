@@ -1,9 +1,9 @@
 
 import Sidebar from "@/components/layout/Sidebar";
-import { AppointmentsHeader } from "@/components/appointments/AppointmentsHeader";
-import { AppointmentFilters } from "@/components/appointments/AppointmentFilters";
-import { AppointmentList } from "@/components/appointments/AppointmentList";
-import { EmptyAppointments } from "@/components/appointments/EmptyAppointments";
+import AppointmentsHeader from "@/components/appointments/AppointmentsHeader";
+import AppointmentFilters from "@/components/appointments/AppointmentFilters";
+import AppointmentList from "@/components/appointments/AppointmentList";
+import EmptyAppointments from "@/components/appointments/EmptyAppointments";
 
 export default function Appointments() {
   // This is just for demo purposes

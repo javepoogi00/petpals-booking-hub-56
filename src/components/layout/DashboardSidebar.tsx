@@ -22,7 +22,7 @@ import {
   DrawerContent,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { useMediaQuery } from "@/hooks/use-mobile";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface SidebarProps {
   className?: string;
@@ -33,7 +33,8 @@ export function DashboardSidebar({ className, expanded = true }: SidebarProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const [isExpanded, setIsExpanded] = useState(expanded);
-  const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const isMobile = useIsMobile();
+  const isDesktop = !isMobile;
 
   const sidebarItems = [
     { 
@@ -141,7 +142,7 @@ export function DashboardSidebar({ className, expanded = true }: SidebarProps) {
   );
 
   // Mobile version uses a drawer
-  if (!isDesktop) {
+  if (isMobile) {
     return (
       <Drawer>
         <DrawerTrigger asChild>

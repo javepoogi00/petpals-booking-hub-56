@@ -58,7 +58,7 @@ export default function Sidebar() {
         {!collapsed && (
           <div className="font-bold text-xl text-primary">PetPals</div>
         )}
-        <Button variant="ghost" size="icon" onClick={toggleSidebar} className="ml-auto">
+        <Button variant="ghost" size="sm" onClick={toggleSidebar} className="ml-auto">
           {collapsed ? <MenuIcon size={20} /> : <X size={20} />}
         </Button>
       </div>

@@ -1,13 +1,18 @@
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Calendar } from 'lucide-react';
+import { Menu, X, Calendar, User, LayoutDashboard, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Logo } from '@/components/ui/logo';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const isDashboardPath = location.pathname.includes('/dashboard') || 
+                          location.pathname.includes('/appointments') || 
+                          location.pathname.includes('/profile') || 
+                          location.pathname.includes('/billing');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,6 +31,13 @@ const Navbar = () => {
     { name: 'About', href: '#about' },
   ];
 
+  const dashboardLinks = [
+    { name: 'Dashboard', href: '/dashboard', icon: <LayoutDashboard className="h-4 w-4 mr-2" /> },
+    { name: 'Appointments', href: '/appointments', icon: <Calendar className="h-4 w-4 mr-2" /> },
+    { name: 'Billing', href: '/billing', icon: <CreditCard className="h-4 w-4 mr-2" /> },
+    { name: 'Profile', href: '/profile', icon: <User className="h-4 w-4 mr-2" /> },
+  ];
+
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -40,36 +52,69 @@ const Navbar = () => {
           
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
-              >
-                {link.name}
-              </a>
-            ))}
+            {isDashboardPath ? (
+              // Dashboard Navigation
+              dashboardLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  className={`flex items-center text-sm font-medium transition-colors ${
+                    location.pathname === link.href
+                      ? 'text-coquette-600'
+                      : 'text-foreground/80 hover:text-primary'
+                  }`}
+                >
+                  {link.icon}
+                  {link.name}
+                </Link>
+              ))
+            ) : (
+              // Public Navigation
+              navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+                >
+                  {link.name}
+                </a>
+              ))
+            )}
           </nav>
           
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link to="/login">
-              <Button 
-                variant="outline"
-                size="sm"
-              >
-                Login
-              </Button>
-            </Link>
-            <Link to="/register">
+            {isDashboardPath ? (
               <Button 
                 variant="primary"
                 size="sm"
+                as={Link}
+                to="/appointments/new"
               >
-                Register
+                New Appointment
                 <Calendar className="ml-2 w-4 h-4" />
               </Button>
-            </Link>
+            ) : (
+              <>
+                <Link to="/login">
+                  <Button 
+                    variant="outline"
+                    size="sm"
+                  >
+                    Login
+                  </Button>
+                </Link>
+                <Link to="/register">
+                  <Button 
+                    variant="primary"
+                    size="sm"
+                  >
+                    Register
+                    <Calendar className="ml-2 w-4 h-4" />
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
           
           {/* Mobile Menu Button */}
@@ -92,32 +137,67 @@ const Navbar = () => {
         <div className="md:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-lg shadow-lg animate-slide-down">
           <div className="container mx-auto px-4 py-4">
             <nav className="flex flex-col space-y-3">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-base font-medium py-2 text-foreground/80 hover:text-primary transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.name}
-                </a>
-              ))}
-              <div className="flex flex-col space-y-3 pt-3 border-t">
-                <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
-                  <Button variant="outline" size="sm" className="w-full justify-center">
-                    Login
-                  </Button>
-                </Link>
-                <Link to="/register" onClick={() => setIsMobileMenuOpen(false)}>
-                  <Button 
-                    variant="primary" 
-                    size="sm" 
-                    className="w-full justify-center"
+              {isDashboardPath ? (
+                // Dashboard Mobile Navigation
+                dashboardLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    className={`flex items-center text-base font-medium py-2 ${
+                      location.pathname === link.href
+                        ? 'text-coquette-600'
+                        : 'text-foreground/80 hover:text-primary'
+                    }`}
+                    onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    Register
-                    <Calendar className="ml-2 w-4 h-4" />
-                  </Button>
-                </Link>
+                    {link.icon}
+                    {link.name}
+                  </Link>
+                ))
+              ) : (
+                // Public Mobile Navigation
+                navLinks.map((link) => (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    className="text-base font-medium py-2 text-foreground/80 hover:text-primary transition-colors"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {link.name}
+                  </a>
+                ))
+              )}
+              <div className="flex flex-col space-y-3 pt-3 border-t">
+                {isDashboardPath ? (
+                  <Link to="/appointments/new" onClick={() => setIsMobileMenuOpen(false)}>
+                    <Button 
+                      variant="primary" 
+                      size="sm" 
+                      className="w-full justify-center"
+                    >
+                      New Appointment
+                      <Calendar className="ml-2 w-4 h-4" />
+                    </Button>
+                  </Link>
+                ) : (
+                  <>
+                    <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
+                      <Button variant="outline" size="sm" className="w-full justify-center">
+                        Login
+                      </Button>
+                    </Link>
+                    <Link to="/register" onClick={() => setIsMobileMenuOpen(false)}>
+                      <Button 
+                        variant="primary" 
+                        size="sm" 
+                        className="w-full justify-center"
+                      >
+                        Register
+                        <Calendar className="ml-2 w-4 h-4" />
+                      </Button>
+                    </Link>
+                  </>
+                )}
               </div>
             </nav>
           </div>

@@ -2,8 +2,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
-import { Calendar, PawPrint, Clock, Bell, PhilippinePeso } from 'lucide-react';
+import { Card } from '@/components/ui/card';
+import { Calendar, PawPrint, Clock, Bell, CreditCard, LayoutDashboard, User } from 'lucide-react';
 
 const Dashboard = () => {
   const upcomingAppointments = [
@@ -20,6 +22,51 @@ const Dashboard = () => {
     <div className="min-h-screen bg-gradient-to-b from-coquette-50 to-coquette-100 paw-pattern">
       <Navbar />
       <div className="container mx-auto pt-28 pb-16 px-4">
+        {/* Dashboard Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold font-display text-coquette-800">Pet Parent Dashboard</h1>
+          <p className="text-muted-foreground">Welcome back! Here's an overview of your pet's care</p>
+        </div>
+
+        {/* Dashboard Menu */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <Link to="/dashboard">
+            <div className="bg-white p-4 rounded-xl shadow-sm border border-coquette-100 flex flex-col items-center justify-center text-center hover:border-coquette-300 transition-all">
+              <div className="w-12 h-12 bg-coquette-100 rounded-full flex items-center justify-center mb-2">
+                <LayoutDashboard className="h-6 w-6 text-coquette-600" />
+              </div>
+              <span className="font-medium">Dashboard</span>
+            </div>
+          </Link>
+          
+          <Link to="/appointments">
+            <div className="bg-white p-4 rounded-xl shadow-sm border border-coquette-100 flex flex-col items-center justify-center text-center hover:border-coquette-300 transition-all">
+              <div className="w-12 h-12 bg-coquette-100 rounded-full flex items-center justify-center mb-2">
+                <Calendar className="h-6 w-6 text-coquette-600" />
+              </div>
+              <span className="font-medium">Appointments</span>
+            </div>
+          </Link>
+          
+          <Link to="/billing">
+            <div className="bg-white p-4 rounded-xl shadow-sm border border-coquette-100 flex flex-col items-center justify-center text-center hover:border-coquette-300 transition-all">
+              <div className="w-12 h-12 bg-coquette-100 rounded-full flex items-center justify-center mb-2">
+                <CreditCard className="h-6 w-6 text-coquette-600" />
+              </div>
+              <span className="font-medium">Billing</span>
+            </div>
+          </Link>
+          
+          <Link to="/profile">
+            <div className="bg-white p-4 rounded-xl shadow-sm border border-coquette-100 flex flex-col items-center justify-center text-center hover:border-coquette-300 transition-all">
+              <div className="w-12 h-12 bg-coquette-100 rounded-full flex items-center justify-center mb-2">
+                <User className="h-6 w-6 text-coquette-600" />
+              </div>
+              <span className="font-medium">Profile</span>
+            </div>
+          </Link>
+        </div>
+
         <div className="flex flex-col md:flex-row justify-between items-start gap-6">
           {/* Welcome Section */}
           <div className="bg-white p-6 rounded-xl shadow-subtle border border-coquette-100 w-full md:w-2/3">
@@ -47,7 +94,7 @@ const Dashboard = () => {
               <div className="bg-coquette-50 p-4 rounded-lg border border-coquette-100">
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium text-muted-foreground">Due</span>
-                  <PhilippinePeso className="h-5 w-5 text-coquette-500" />
+                  <CreditCard className="h-5 w-5 text-coquette-500" />
                 </div>
                 <p className="text-2xl font-bold mt-2">₱{recentBilling.filter(bill => bill.status === 'Pending').reduce((sum, bill) => sum + bill.amount, 0)}</p>
                 <p className="text-xs text-muted-foreground">Payments</p>
@@ -117,7 +164,7 @@ const Dashboard = () => {
               </Link>
               <Link to="/billing">
                 <Button variant="outline" className="w-full justify-start" size="sm">
-                  <PhilippinePeso className="mr-2 h-4 w-4" />
+                  <CreditCard className="mr-2 h-4 w-4" />
                   View Billing
                 </Button>
               </Link>
@@ -187,6 +234,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

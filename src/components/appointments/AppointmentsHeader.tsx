@@ -17,6 +17,7 @@ const AppointmentsHeader = () => {
           <Button 
             variant="primary"
             size="sm"
+            className="bg-coquette-600 hover:bg-coquette-700"
           >
             <Plus className="w-4 h-4 mr-2" />
             New Appointment

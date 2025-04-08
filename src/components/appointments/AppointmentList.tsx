@@ -16,14 +16,14 @@ type AppointmentType = {
 
 type AppointmentListProps = {
   appointments: AppointmentType[];
-  onCancelAppointment: (id: number) => void;
-  onConfirmAppointment: (id: number) => void;
+  onCancel: (id: number) => void;
+  onConfirm: (id: number) => void;
 };
 
 const AppointmentList = ({ 
   appointments, 
-  onCancelAppointment, 
-  onConfirmAppointment 
+  onCancel, 
+  onConfirm 
 }: AppointmentListProps) => {
   return (
     <div className="divide-y divide-coquette-100">
@@ -31,8 +31,8 @@ const AppointmentList = ({
         <AppointmentCard
           key={appointment.id}
           appointment={appointment}
-          onCancel={onCancelAppointment}
-          onConfirm={onConfirmAppointment}
+          onCancel={onCancel}
+          onConfirm={onConfirm}
         />
       ))}
     </div>

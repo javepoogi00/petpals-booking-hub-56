@@ -48,7 +48,7 @@ const AppointmentFilters = ({
           <Button 
             variant="outline"
             size="sm"
-            className="w-full sm:w-auto"
+            className="w-full sm:w-auto bg-coquette-50 text-coquette-700 hover:bg-coquette-100"
             onClick={() => setFilterOpen(!filterOpen)}
           >
             <Filter className="mr-2 h-4 w-4" />

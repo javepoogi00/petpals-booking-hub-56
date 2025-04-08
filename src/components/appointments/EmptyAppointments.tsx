@@ -22,7 +22,7 @@ const EmptyAppointments = ({ searchTerm }: EmptyAppointmentsProps) => {
         <Link to="/appointments/new">
           <Button 
             variant="primary"
-            className="mt-4"
+            className="mt-4 bg-coquette-600 hover:bg-coquette-700"
           >
             <Plus className="w-4 h-4 mr-2" />
             Book Appointment

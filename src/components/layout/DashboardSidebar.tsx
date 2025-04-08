@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -69,9 +70,12 @@ export function DashboardSidebar({ className, expanded = true }: SidebarProps) {
   ];
 
   const SidebarContent = () => (
-    <div className={cn("flex h-full flex-col bg-white border-r border-gray-200", 
+    <div className={cn(
+      "flex h-full flex-col bg-white border-r border-gray-200", 
+      "text-coquette-900 bg-coquette-50", // Pink color scheme
       isExpanded ? "w-64" : "w-20",
-      className)}>
+      className
+    )}>
       <div className="px-3 py-4 flex flex-col h-full">
         <div className="mb-8 flex items-center px-2 justify-between">
           <div className={cn("flex items-center gap-2", !isExpanded && "justify-center w-full")}>
@@ -81,7 +85,7 @@ export function DashboardSidebar({ className, expanded = true }: SidebarProps) {
             <Button 
               variant="ghost" 
               size="sm" 
-              className="p-0 h-8 w-8"
+              className="p-0 h-8 w-8 hover:bg-coquette-100"
               onClick={() => setIsExpanded(!isExpanded)}
             >
               {isExpanded ? <ChevronLeft className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
@@ -98,7 +102,7 @@ export function DashboardSidebar({ className, expanded = true }: SidebarProps) {
               </Avatar>
               <div>
                 <p className="text-sm font-medium">Emma Thompson</p>
-                <p className="text-xs text-muted-foreground">Pet Parent</p>
+                <p className="text-xs text-coquette-600">Pet Parent</p>
               </div>
             </div>
           </div>
@@ -113,8 +117,8 @@ export function DashboardSidebar({ className, expanded = true }: SidebarProps) {
                 "w-full flex items-center justify-start",
                 !isExpanded && "px-2 justify-center",
                 location.pathname === item.url ? 
-                "bg-coquette-50 text-coquette-700" : 
-                "hover:bg-muted"
+                "bg-coquette-100 text-coquette-700" : 
+                "hover:bg-coquette-50 text-coquette-900"
               )}
               onClick={() => navigate(item.url)}
             >
@@ -145,11 +149,15 @@ export function DashboardSidebar({ className, expanded = true }: SidebarProps) {
     return (
       <Drawer>
         <DrawerTrigger asChild>
-          <Button variant="outline" size="sm">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="bg-coquette-50 text-coquette-700 hover:bg-coquette-100"
+          >
             <PawPrint className="h-5 w-5" />
           </Button>
         </DrawerTrigger>
-        <DrawerContent className="h-[90vh]">
+        <DrawerContent className="h-[90vh] bg-coquette-50">
           <DrawerClose className="absolute right-4 top-4" />
           <SidebarContent />
         </DrawerContent>

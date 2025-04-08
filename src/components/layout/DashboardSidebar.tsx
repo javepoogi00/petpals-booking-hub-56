@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -37,7 +36,6 @@ export function DashboardSidebar({ className, expanded = true }: SidebarProps) {
   const isMobile = useIsMobile();
   const isDesktop = !isMobile;
 
-  // Handle back navigation
   const handleBack = () => {
     navigate(-1);
   };
@@ -99,7 +97,6 @@ export function DashboardSidebar({ className, expanded = true }: SidebarProps) {
           )}
         </div>
         
-        {/* Back button */}
         <Button
           variant="ghost"
           size="sm"
@@ -118,7 +115,7 @@ export function DashboardSidebar({ className, expanded = true }: SidebarProps) {
                 <AvatarFallback>U</AvatarFallback>
               </Avatar>
               <div>
-                <p className="text-sm font-medium">Emma Thompson</p>
+                <p className="text-sm font-medium">Xanthei Iona Pilares</p>
                 <p className="text-xs text-coquette-600">Pet Parent</p>
               </div>
             </div>
@@ -161,7 +158,6 @@ export function DashboardSidebar({ className, expanded = true }: SidebarProps) {
     </div>
   );
 
-  // Mobile version uses a drawer
   if (isMobile) {
     return (
       <Drawer>
@@ -182,7 +178,6 @@ export function DashboardSidebar({ className, expanded = true }: SidebarProps) {
     );
   }
 
-  // Desktop version
   return <SidebarContent />;
 }
 

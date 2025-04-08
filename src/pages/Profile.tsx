@@ -15,8 +15,8 @@ interface ProfileData {
 }
 
 const defaultProfile: ProfileData = {
-  name: "Emma Thompson",
-  email: "emma@example.com",
+  name: "Xanthei Iona Pilares",
+  email: "xanthei@example.com",
   phone: "(555) 123-4567",
   address: "123 Main St, San Francisco, CA",
   avatarUrl: "/lovable-uploads/dd3b7da4-5b1e-4202-826f-6283630aebe6.png"

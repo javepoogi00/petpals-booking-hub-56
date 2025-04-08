@@ -49,7 +49,7 @@ const Navbar = () => {
                 <div className="flex items-center space-x-4">
                   <Avatar className="h-8 w-8">
                     <AvatarImage src="/lovable-uploads/c999e0e9-f852-4128-a4c0-58740869d932.png" alt="User" />
-                    <AvatarFallback>U</AvatarFallback>
+                    <AvatarFallback>XP</AvatarFallback>
                   </Avatar>
                 </div>
               </div>

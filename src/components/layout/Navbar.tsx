@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Calendar, User, LayoutDashboard, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -53,7 +52,6 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {isDashboardPath ? (
-              // Dashboard Navigation
               dashboardLinks.map((link) => (
                 <Link
                   key={link.name}
@@ -69,7 +67,6 @@ const Navbar = () => {
                 </Link>
               ))
             ) : (
-              // Public Navigation
               navLinks.map((link) => (
                 <a
                   key={link.name}
@@ -85,15 +82,15 @@ const Navbar = () => {
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
             {isDashboardPath ? (
-              <Button 
-                variant="primary"
-                size="sm"
-                as={Link}
-                to="/appointments/new"
-              >
-                New Appointment
-                <Calendar className="ml-2 w-4 h-4" />
-              </Button>
+              <Link to="/appointments/new">
+                <Button 
+                  variant="primary"
+                  size="sm"
+                >
+                  New Appointment
+                  <Calendar className="ml-2 w-4 h-4" />
+                </Button>
+              </Link>
             ) : (
               <>
                 <Link to="/login">
@@ -132,13 +129,11 @@ const Navbar = () => {
         </div>
       </div>
       
-      {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-lg shadow-lg animate-slide-down">
           <div className="container mx-auto px-4 py-4">
             <nav className="flex flex-col space-y-3">
               {isDashboardPath ? (
-                // Dashboard Mobile Navigation
                 dashboardLinks.map((link) => (
                   <Link
                     key={link.name}
@@ -155,7 +150,6 @@ const Navbar = () => {
                   </Link>
                 ))
               ) : (
-                // Public Mobile Navigation
                 navLinks.map((link) => (
                   <a
                     key={link.name}

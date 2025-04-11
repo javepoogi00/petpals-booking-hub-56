@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { UserPlus, Mail, Lock, ArrowRight, Eye, EyeOff, Heart, PawPrint, Phone, Check, AlertCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Logo } from '@/components/ui/logo';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -18,11 +19,10 @@ const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
   
   // Verification states
-  const [emailVerified, setEmailVerified] = useState(false);
-  const [phoneVerified, setPhoneVerified] = useState(false);
+  const [contactMethod, setContactMethod] = useState<'email' | 'phone'>('email');
+  const [isVerified, setIsVerified] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
   const [verificationCode, setVerificationCode] = useState('');
-  const [verifyingField, setVerifyingField] = useState<'email' | 'phone' | null>(null);
   
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -37,8 +37,8 @@ const Register = () => {
     return /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(phone);
   };
 
-  const handleSendVerification = (type: 'email' | 'phone') => {
-    if (type === 'email' && !isValidEmail(email)) {
+  const handleSendVerification = () => {
+    if (contactMethod === 'email' && !isValidEmail(email)) {
       toast({
         title: "Invalid Email",
         description: "Please enter a valid email address",
@@ -47,7 +47,7 @@ const Register = () => {
       return;
     }
 
-    if (type === 'phone' && !isValidPhone(phone)) {
+    if (contactMethod === 'phone' && !isValidPhone(phone)) {
       toast({
         title: "Invalid Phone Number",
         description: "Please enter a valid phone number",
@@ -56,36 +56,29 @@ const Register = () => {
       return;
     }
 
-    setVerifyingField(type);
     setIsVerifying(true);
     
     // Simulate sending verification code
     toast({
       title: `Verification Code Sent`,
-      description: `A verification code has been sent to your ${type === 'email' ? 'email address' : 'phone number'}.`,
+      description: `A verification code has been sent to your ${contactMethod === 'email' ? 'email address' : 'phone number'}.`,
     });
     
     // Mock code for demo purposes
     // In a real app, this would be sent via email/SMS
-    console.log(`Mock verification code for ${type}: 123456`);
+    console.log(`Mock verification code for ${contactMethod}: 123456`);
   };
 
   const handleVerifyCode = () => {
     // Mock verification - in a real app, this would validate against a server
     if (verificationCode === '123456') {
-      if (verifyingField === 'email') {
-        setEmailVerified(true);
-      } else if (verifyingField === 'phone') {
-        setPhoneVerified(true);
-      }
-      
+      setIsVerified(true);
       setIsVerifying(false);
-      setVerifyingField(null);
       setVerificationCode('');
       
       toast({
         title: "Verification Successful",
-        description: `Your ${verifyingField} has been verified.`,
+        description: `Your ${contactMethod} has been verified.`,
       });
     } else {
       toast({
@@ -98,7 +91,6 @@ const Register = () => {
 
   const handleCancelVerification = () => {
     setIsVerifying(false);
-    setVerifyingField(null);
     setVerificationCode('');
   };
 
@@ -107,7 +99,7 @@ const Register = () => {
     setIsLoading(true);
 
     // Form validation
-    if (!name || !email || !phone || !password || !confirmPassword) {
+    if (!name || (contactMethod === 'email' && !email) || (contactMethod === 'phone' && !phone) || !password || !confirmPassword) {
       toast({
         title: "Missing Fields",
         description: "Please fill in all required fields",
@@ -117,20 +109,10 @@ const Register = () => {
       return;
     }
 
-    if (!emailVerified) {
+    if (!isVerified) {
       toast({
-        title: "Email Not Verified",
-        description: "Please verify your email address before registering",
-        variant: "destructive",
-      });
-      setIsLoading(false);
-      return;
-    }
-
-    if (!phoneVerified) {
-      toast({
-        title: "Phone Not Verified",
-        description: "Please verify your phone number before registering",
+        title: `${contactMethod === 'email' ? 'Email' : 'Phone'} Not Verified`,
+        description: `Please verify your ${contactMethod === 'email' ? 'email address' : 'phone number'} before registering`,
         variant: "destructive",
       });
       setIsLoading(false);
@@ -187,9 +169,9 @@ const Register = () => {
         <div className="bg-white/90 backdrop-blur-sm shadow-subtle rounded-xl p-6 sm:p-8 border border-coquette-100">
           {isVerifying ? (
             <div className="space-y-4">
-              <h2 className="text-xl font-semibold text-center mb-4">Verify Your {verifyingField === 'email' ? 'Email' : 'Phone'}</h2>
+              <h2 className="text-xl font-semibold text-center mb-4">Verify Your {contactMethod === 'email' ? 'Email' : 'Phone'}</h2>
               <p className="text-center text-gray-600 mb-4">
-                Enter the 6-digit code sent to your {verifyingField === 'email' ? 'email address' : 'phone number'}
+                Enter the 6-digit code sent to your {contactMethod === 'email' ? 'email address' : 'phone number'}
               </p>
               <div className="space-y-2">
                 <Label htmlFor="verificationCode">Verification Code</Label>
@@ -218,7 +200,7 @@ const Register = () => {
                 </Button>
               </div>
               <p className="text-center text-sm text-gray-500 mt-4">
-                Didn't receive a code? <button className="text-coquette-600 hover:underline" onClick={() => handleSendVerification(verifyingField!)}>Resend</button>
+                Didn't receive a code? <button className="text-coquette-600 hover:underline" onClick={handleSendVerification}>Resend</button>
               </p>
             </div>
           ) : (
@@ -239,80 +221,102 @@ const Register = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email">
-                  Email
-                  {emailVerified && (
-                    <span className="ml-2 inline-flex items-center text-green-600">
-                      <Check className="h-4 w-4 mr-1" /> Verified
-                    </span>
-                  )}
-                </Label>
-                <div className="relative">
-                  <Input
-                    id="email"
-                    type="email" 
-                    placeholder="you@example.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    disabled={emailVerified}
-                    className={`pl-10 pr-24 ${
-                      emailVerified 
-                        ? "border-green-300 bg-green-50" 
-                        : "border-coquette-200 focus-visible:ring-coquette-500"
-                    }`}
-                  />
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-coquette-400" />
-                  {!emailVerified && (
-                    <Button
-                      type="button"
-                      onClick={() => handleSendVerification('email')}
-                      variant="ghost"
-                      size="sm"
-                      className="absolute right-2 top-1/2 -translate-y-1/2 text-sm h-7 text-coquette-600 hover:text-coquette-700 hover:bg-coquette-50"
-                    >
-                      Verify Email
-                    </Button>
-                  )}
-                </div>
+                <Label>Contact Method</Label>
+                <RadioGroup 
+                  value={contactMethod} 
+                  onValueChange={(value) => setContactMethod(value as 'email' | 'phone')}
+                  className="flex space-x-4"
+                >
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="email" id="radio-email" />
+                    <Label htmlFor="radio-email">Email</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="phone" id="radio-phone" />
+                    <Label htmlFor="radio-phone">Phone</Label>
+                  </div>
+                </RadioGroup>
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="phone">
-                  Phone Number
-                  {phoneVerified && (
-                    <span className="ml-2 inline-flex items-center text-green-600">
-                      <Check className="h-4 w-4 mr-1" /> Verified
-                    </span>
-                  )}
-                </Label>
-                <div className="relative">
-                  <Input
-                    id="phone"
-                    type="tel" 
-                    placeholder="(555) 123-4567"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    disabled={phoneVerified}
-                    className={`pl-10 pr-24 ${
-                      phoneVerified 
-                        ? "border-green-300 bg-green-50" 
-                        : "border-coquette-200 focus-visible:ring-coquette-500"
-                    }`}
-                  />
-                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-coquette-400" />
-                  {!phoneVerified && (
-                    <Button
-                      type="button"
-                      onClick={() => handleSendVerification('phone')}
-                      variant="ghost"
-                      size="sm"
-                      className="absolute right-2 top-1/2 -translate-y-1/2 text-sm h-7 text-coquette-600 hover:text-coquette-700 hover:bg-coquette-50"
-                    >
-                      Verify Phone
-                    </Button>
-                  )}
+              {contactMethod === 'email' && (
+                <div className="space-y-2">
+                  <Label htmlFor="email">
+                    Email
+                    {isVerified && (
+                      <span className="ml-2 inline-flex items-center text-green-600">
+                        <Check className="h-4 w-4 mr-1" /> Verified
+                      </span>
+                    )}
+                  </Label>
+                  <div className="relative">
+                    <Input
+                      id="email"
+                      type="email" 
+                      placeholder="you@example.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      disabled={isVerified}
+                      className={`pl-10 pr-24 ${
+                        isVerified 
+                          ? "border-green-300 bg-green-50" 
+                          : "border-coquette-200 focus-visible:ring-coquette-500"
+                      }`}
+                    />
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-coquette-400" />
+                    {!isVerified && (
+                      <Button
+                        type="button"
+                        onClick={handleSendVerification}
+                        variant="ghost"
+                        size="sm"
+                        className="absolute right-2 top-1/2 -translate-y-1/2 text-sm h-7 text-coquette-600 hover:text-coquette-700 hover:bg-coquette-50"
+                      >
+                        Verify Email
+                      </Button>
+                    )}
+                  </div>
                 </div>
-              </div>
+              )}
+
+              {contactMethod === 'phone' && (
+                <div className="space-y-2">
+                  <Label htmlFor="phone">
+                    Phone Number
+                    {isVerified && (
+                      <span className="ml-2 inline-flex items-center text-green-600">
+                        <Check className="h-4 w-4 mr-1" /> Verified
+                      </span>
+                    )}
+                  </Label>
+                  <div className="relative">
+                    <Input
+                      id="phone"
+                      type="tel" 
+                      placeholder="(555) 123-4567"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      disabled={isVerified}
+                      className={`pl-10 pr-24 ${
+                        isVerified 
+                          ? "border-green-300 bg-green-50" 
+                          : "border-coquette-200 focus-visible:ring-coquette-500"
+                      }`}
+                    />
+                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-coquette-400" />
+                    {!isVerified && (
+                      <Button
+                        type="button"
+                        onClick={handleSendVerification}
+                        variant="ghost"
+                        size="sm"
+                        className="absolute right-2 top-1/2 -translate-y-1/2 text-sm h-7 text-coquette-600 hover:text-coquette-700 hover:bg-coquette-50"
+                      >
+                        Verify Phone
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              )}
 
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
@@ -359,7 +363,7 @@ const Register = () => {
                 <Button 
                   type="submit" 
                   className="w-full font-display bg-coquette-500 hover:bg-coquette-600"
-                  disabled={isLoading || !emailVerified || !phoneVerified}
+                  disabled={isLoading || !isVerified}
                 >
                   {isLoading ? 'Creating Account...' : 'Create Account'}
                   {!isLoading && <ArrowRight className="ml-2 h-4 w-4" />}

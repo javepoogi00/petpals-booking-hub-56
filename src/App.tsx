@@ -1,45 +1,48 @@
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
-import Profile from "./pages/Profile";
-import Appointments from "./pages/Appointments";
-import NewAppointment from "./pages/NewAppointment";
-import Billing from "./pages/Billing";
-import Pets from "./pages/Pets";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Toaster } from "@/components/ui/sonner";
 
-const queryClient = new QueryClient();
+// Layout components
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
+// Pages
+import Index from "@/pages/Index";
+import Login from "@/pages/Login";
+import Register from "@/pages/Register";
+import Dashboard from "@/pages/Dashboard";
+import Appointments from "@/pages/Appointments";
+import NewAppointment from "@/pages/NewAppointment";
+import Pets from "@/pages/Pets";
+import Profile from "@/pages/Profile";
+import Billing from "@/pages/Billing";
+import NotFound from "@/pages/NotFound";
+
+// CSS
+import "./App.css";
+
+function App() {
+  return (
+    <Router>
+      <Navbar />
+      <main className="flex-1">
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/profile" element={<Profile />} />
           <Route path="/appointments" element={<Appointments />} />
           <Route path="/appointments/new" element={<NewAppointment />} />
-          <Route path="/billing" element={<Billing />} />
           <Route path="/pets" element={<Pets />} />
-          <Route path="/settings" element={<NotFound />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/billing" element={<Billing />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+      </main>
+      <Footer />
+      <Toaster position="top-center" />
+    </Router>
+  );
+}
 
 export default App;

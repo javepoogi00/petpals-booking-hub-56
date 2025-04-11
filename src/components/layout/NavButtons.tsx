@@ -20,19 +20,12 @@ export const NavButtons: React.FC<NavButtonsProps> = ({ isDashboardPath, onClick
           </Button>
         </Link>
       ) : (
-        <>
-          <Link to="/login" onClick={onClick}>
-            <Button variant="outline" size="sm">
-              Login
-            </Button>
-          </Link>
-          <Link to="/register" onClick={onClick}>
-            <Button variant="primary" size="sm">
-              Register
-              <Calendar className="ml-2 w-4 h-4" />
-            </Button>
-          </Link>
-        </>
+        <Link to="/register" onClick={onClick}>
+          <Button variant="primary" size="sm">
+            Register
+            <Calendar className="ml-2 w-4 h-4" />
+          </Button>
+        </Link>
       )}
     </>
   );

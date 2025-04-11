@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
@@ -161,7 +162,6 @@ export default function NewAppointment() {
                         <Button
                           variant="outline"
                           className="w-full justify-start text-left font-normal border-coquette-200"
-                          id="date"
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
                           {date ? format(date, "PPP") : <span>Pick a date</span>}

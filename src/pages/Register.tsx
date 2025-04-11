@@ -4,10 +4,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import { UserPlus, Mail, Lock, ArrowRight, Eye, EyeOff, Heart, PawPrint, Phone, Check, AlertCircle } from 'lucide-react';
+import { UserPlus, Mail, Lock, ArrowRight, Eye, EyeOff, Heart, PawPrint, Phone, Check, AlertCircle, Info } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Logo } from '@/components/ui/logo';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { supabase } from '@/integrations/supabase/client';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -23,6 +25,7 @@ const Register = () => {
   const [isVerified, setIsVerified] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
   const [verificationCode, setVerificationCode] = useState('');
+  const [mockCode, setMockCode] = useState('');
   
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -58,20 +61,23 @@ const Register = () => {
 
     setIsVerifying(true);
     
+    // Generate a random 6-digit code
+    const generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
+    setMockCode(generatedCode);
+    
     // Simulate sending verification code
     toast({
       title: `Verification Code Sent`,
-      description: `A verification code has been sent to your ${contactMethod === 'email' ? 'email address' : 'phone number'}.`,
+      description: `[DEMO] For the demo, use the code: ${generatedCode}`,
     });
     
-    // Mock code for demo purposes
-    // In a real app, this would be sent via email/SMS
-    console.log(`Mock verification code for ${contactMethod}: 123456`);
+    // Log the code to console for demo purposes
+    console.log(`Mock verification code for ${contactMethod}: ${generatedCode}`);
   };
 
   const handleVerifyCode = () => {
-    // Mock verification - in a real app, this would validate against a server
-    if (verificationCode === '123456') {
+    // Verify against the mock code we generated
+    if (verificationCode === mockCode) {
       setIsVerified(true);
       setIsVerifying(false);
       setVerificationCode('');
@@ -170,6 +176,14 @@ const Register = () => {
           {isVerifying ? (
             <div className="space-y-4">
               <h2 className="text-xl font-semibold text-center mb-4">Verify Your {contactMethod === 'email' ? 'Email' : 'Phone'}</h2>
+              
+              <Alert className="bg-amber-50 text-amber-800 border-amber-200">
+                <Info className="h-4 w-4" />
+                <AlertDescription>
+                  This is a demo app. For testing purposes, use the verification code: <span className="font-bold">{mockCode}</span>
+                </AlertDescription>
+              </Alert>
+              
               <p className="text-center text-gray-600 mb-4">
                 Enter the 6-digit code sent to your {contactMethod === 'email' ? 'email address' : 'phone number'}
               </p>

@@ -21,15 +21,15 @@ export default function Index() {
           </div>
           <div className="w-full md:w-5/12">
             <div className="flex flex-col md:flex-row items-center gap-6">
-              <div className="w-full md:w-3/5">
-                <LoginSection />
-              </div>
-              <div className="w-full md:w-2/5 flex justify-center md:justify-end mt-4 md:mt-0">
+              <div className="w-full md:w-2/5 flex justify-center md:justify-start mt-4 md:mt-0 order-2 md:order-1">
                 <img 
                   src="/lovable-uploads/40f4d127-2348-4e7b-bf84-b10d0db4d95c.png" 
                   alt="Cat with bath towel" 
                   className="w-36 h-36 object-cover rounded-full border-4 border-white shadow-lg"
                 />
+              </div>
+              <div className="w-full md:w-3/5 order-1 md:order-2">
+                <LoginSection />
               </div>
             </div>
           </div>

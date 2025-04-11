@@ -10,6 +10,11 @@ import { Logo } from '@/components/ui/logo';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { supabase } from '@/integrations/supabase/client';
+import { 
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot
+} from '@/components/ui/input-otp';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -65,13 +70,14 @@ const Register = () => {
     const generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
     setMockCode(generatedCode);
     
-    // Simulate sending verification code
+    // Show verification code in a highly visible alert
     toast({
-      title: `Verification Code Sent`,
-      description: `[DEMO] For the demo, use the code: ${generatedCode}`,
+      title: "DEMO: Verification Code",
+      description: `For demo purposes, your verification code is: ${generatedCode}`,
+      variant: "default",
+      duration: 10000, // Show for 10 seconds
     });
     
-    // Log the code to console for demo purposes
     console.log(`Mock verification code for ${contactMethod}: ${generatedCode}`);
   };
 
@@ -89,7 +95,7 @@ const Register = () => {
     } else {
       toast({
         title: "Invalid Code",
-        description: "The verification code you entered is incorrect",
+        description: "The verification code you entered is incorrect. Try again or request a new code.",
         variant: "destructive",
       });
     }
@@ -177,42 +183,53 @@ const Register = () => {
             <div className="space-y-4">
               <h2 className="text-xl font-semibold text-center mb-4">Verify Your {contactMethod === 'email' ? 'Email' : 'Phone'}</h2>
               
-              <Alert className="bg-amber-50 text-amber-800 border-amber-200">
+              <Alert className="bg-amber-50 text-amber-800 border-amber-200 mb-4">
                 <Info className="h-4 w-4" />
-                <AlertDescription>
-                  This is a demo app. For testing purposes, use the verification code: <span className="font-bold">{mockCode}</span>
+                <AlertDescription className="font-medium">
+                  DEMO APP: Your verification code is: <span className="font-bold text-lg tracking-wide">{mockCode}</span>
                 </AlertDescription>
               </Alert>
               
-              <p className="text-center text-gray-600 mb-4">
+              <p className="text-center text-gray-600">
                 Enter the 6-digit code sent to your {contactMethod === 'email' ? 'email address' : 'phone number'}
               </p>
-              <div className="space-y-2">
-                <Label htmlFor="verificationCode">Verification Code</Label>
-                <Input
-                  id="verificationCode"
-                  value={verificationCode}
-                  onChange={(e) => setVerificationCode(e.target.value)}
-                  placeholder="123456"
-                  className="text-center text-lg tracking-wider"
-                  maxLength={6}
-                />
+
+              <div className="space-y-4">
+                <div className="flex justify-center py-2">
+                  <InputOTP
+                    maxLength={6}
+                    value={verificationCode}
+                    onChange={setVerificationCode}
+                    className="gap-2"
+                  >
+                    <InputOTPGroup>
+                      <InputOTPSlot index={0} className="border-coquette-200" />
+                      <InputOTPSlot index={1} className="border-coquette-200" />
+                      <InputOTPSlot index={2} className="border-coquette-200" />
+                      <InputOTPSlot index={3} className="border-coquette-200" />
+                      <InputOTPSlot index={4} className="border-coquette-200" />
+                      <InputOTPSlot index={5} className="border-coquette-200" />
+                    </InputOTPGroup>
+                  </InputOTP>
+                </div>
+
+                <div className="flex space-x-3 pt-4">
+                  <Button 
+                    onClick={handleVerifyCode} 
+                    className="flex-1 bg-coquette-500 hover:bg-coquette-600"
+                  >
+                    Verify
+                  </Button>
+                  <Button 
+                    onClick={handleCancelVerification}
+                    variant="outline" 
+                    className="flex-1"
+                  >
+                    Cancel
+                  </Button>
+                </div>
               </div>
-              <div className="flex space-x-3 pt-2">
-                <Button 
-                  onClick={handleVerifyCode} 
-                  className="flex-1 bg-coquette-500 hover:bg-coquette-600"
-                >
-                  Verify
-                </Button>
-                <Button 
-                  onClick={handleCancelVerification}
-                  variant="outline" 
-                  className="flex-1"
-                >
-                  Cancel
-                </Button>
-              </div>
+
               <p className="text-center text-sm text-gray-500 mt-4">
                 Didn't receive a code? <button className="text-coquette-600 hover:underline" onClick={handleSendVerification}>Resend</button>
               </p>
@@ -238,7 +255,10 @@ const Register = () => {
                 <Label>Contact Method</Label>
                 <RadioGroup 
                   value={contactMethod} 
-                  onValueChange={(value) => setContactMethod(value as 'email' | 'phone')}
+                  onValueChange={(value) => {
+                    setContactMethod(value as 'email' | 'phone');
+                    setIsVerified(false); // Reset verification when changing contact method
+                  }}
                   className="flex space-x-4"
                 >
                   <div className="flex items-center space-x-2">
@@ -268,7 +288,10 @@ const Register = () => {
                       type="email" 
                       placeholder="you@example.com"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        setIsVerified(false); // Reset verification when email changes
+                      }}
                       disabled={isVerified}
                       className={`pl-10 pr-24 ${
                         isVerified 
@@ -308,7 +331,10 @@ const Register = () => {
                       type="tel" 
                       placeholder="(555) 123-4567"
                       value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
+                      onChange={(e) => {
+                        setPhone(e.target.value);
+                        setIsVerified(false); // Reset verification when phone changes
+                      }}
                       disabled={isVerified}
                       className={`pl-10 pr-24 ${
                         isVerified 

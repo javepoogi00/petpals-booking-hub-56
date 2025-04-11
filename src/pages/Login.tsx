@@ -1,11 +1,14 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import { PawPrint, Mail, Lock, ArrowRight, Eye, EyeOff, Heart } from 'lucide-react';
+import { PawPrint, Mail, Lock, ArrowRight, Eye, EyeOff, Heart, Calendar, Shield, Clock, ChevronRight, Scissors, Stethoscope } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { Logo } from '@/components/ui/logo';
+import FeatureCard from '@/components/home/FeatureCard';
+import AppointmentCard from '@/components/home/AppointmentCard';
+import TestimonialCard from '@/components/home/TestimonialCard';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -40,6 +43,48 @@ const Login = () => {
       navigate('/dashboard');
     }, 1500);
   };
+
+  const features = [
+    {
+      icon: <Calendar />,
+      title: 'Easy Scheduling',
+      description: 'Book appointments 24/7 with our intuitive online platform.'
+    },
+    {
+      icon: <Clock />,
+      title: 'Appointment Reminders',
+      description: 'Automated notifications so you never miss an appointment.'
+    },
+    {
+      icon: <Shield />,
+      title: 'Verified Providers',
+      description: 'All professionals are certified, insured, and background-checked.'
+    },
+  ];
+
+  const testimonials = [
+    {
+      name: 'Emma Thompson',
+      role: 'Dog Owner',
+      content: "FurCare has been a game-changer for managing Bella's grooming appointments. The reminders are so helpful, and the groomers are always amazing!",
+      image: 'https://images.unsplash.com/photo-1472396961693-142e6e269027',
+      delay: 'delay-100'
+    },
+    {
+      name: 'Michael Rodriguez',
+      role: 'Cat Owner',
+      content: "As a busy professional, I appreciate how easy it is to schedule vet appointments for my cat. The health tracking feature helps me stay on top of vaccinations.",
+      image: 'https://images.unsplash.com/photo-1535268647677-300dbf3d78d1',
+      delay: 'delay-200'
+    },
+    {
+      name: 'Sarah Johnson',
+      role: 'Multiple Pet Owner',
+      content: "Managing appointments for three pets used to be a nightmare. With FurCare, everything is organized in one place. The service is truly exceptional!",
+      image: 'https://images.unsplash.com/photo-1582562124811-c09040d0a901',
+      delay: 'delay-300'
+    }
+  ];
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12 bg-gradient-to-b from-coquette-50 to-coquette-100 paw-pattern">

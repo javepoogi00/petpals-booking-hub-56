@@ -4,7 +4,6 @@ import AppointmentsHeader from "@/components/appointments/AppointmentsHeader";
 import AppointmentFilters from "@/components/appointments/AppointmentFilters";
 import AppointmentList from "@/components/appointments/AppointmentList";
 import EmptyAppointments from "@/components/appointments/EmptyAppointments";
-import { DashboardSidebar } from "@/components/layout/DashboardSidebar";
 
 export default function Appointments() {
   const [filter, setFilter] = useState("upcoming");
@@ -74,29 +73,24 @@ export default function Appointments() {
   });
 
   return (
-    <div className="flex h-screen bg-gray-50">
-      <DashboardSidebar />
-      <div className="flex-1 overflow-auto">
-        <div className="container mx-auto p-6">
-          <AppointmentsHeader />
-          <AppointmentFilters 
-            filterOpen={filterOpen}
-            setFilterOpen={setFilterOpen}
-            searchTerm={searchQuery}
-            setSearchTerm={setSearchQuery}
-          />
-          
-          {filteredAppointments.length > 0 ? (
-            <AppointmentList 
-              appointments={filteredAppointments}
-              onCancel={handleCancelAppointment}
-              onConfirm={handleConfirmAppointment}
-            />
-          ) : (
-            <EmptyAppointments searchTerm={searchQuery} />
-          )}
-        </div>
-      </div>
+    <div className="container mx-auto p-6">
+      <AppointmentsHeader />
+      <AppointmentFilters 
+        filterOpen={filterOpen}
+        setFilterOpen={setFilterOpen}
+        searchTerm={searchQuery}
+        setSearchTerm={setSearchQuery}
+      />
+      
+      {filteredAppointments.length > 0 ? (
+        <AppointmentList 
+          appointments={filteredAppointments}
+          onCancel={handleCancelAppointment}
+          onConfirm={handleConfirmAppointment}
+        />
+      ) : (
+        <EmptyAppointments searchTerm={searchQuery} />
+      )}
     </div>
   );
 }

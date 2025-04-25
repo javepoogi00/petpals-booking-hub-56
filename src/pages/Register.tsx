@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -25,22 +24,20 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   
-  // Verification states
   const [contactMethod, setContactMethod] = useState<'email' | 'phone'>('email');
   const [isVerified, setIsVerified] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
   const [verificationCode, setVerificationCode] = useState('');
   const [mockCode, setMockCode] = useState('');
+  const [userType, setUserType] = useState<'patient' | 'groomer'>('patient');
   
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  // Email validation function
   const isValidEmail = (email: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
   
-  // Phone validation function
   const isValidPhone = (phone: string) => {
     return /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(phone);
   };
@@ -66,23 +63,20 @@ const Register = () => {
 
     setIsVerifying(true);
     
-    // Generate a random 6-digit code
     const generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
     setMockCode(generatedCode);
     
-    // Show verification code in a highly visible alert
     toast({
       title: "DEMO: Verification Code",
       description: `For demo purposes, your verification code is: ${generatedCode}`,
       variant: "default",
-      duration: 10000, // Show for 10 seconds
+      duration: 10000,
     });
     
     console.log(`Mock verification code for ${contactMethod}: ${generatedCode}`);
   };
 
   const handleVerifyCode = () => {
-    // Verify against the mock code we generated
     if (verificationCode === mockCode) {
       setIsVerified(true);
       setIsVerifying(false);
@@ -90,7 +84,7 @@ const Register = () => {
       
       toast({
         title: "Verification Successful",
-        description: `Your ${contactMethod} has been verified.`,
+        description: `Your ${contactMethod === 'email' ? 'email address' : 'phone number'} has been verified.`,
       });
     } else {
       toast({
@@ -110,7 +104,6 @@ const Register = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Form validation
     if (!name || (contactMethod === 'email' && !email) || (contactMethod === 'phone' && !phone) || !password || !confirmPassword) {
       toast({
         title: "Missing Fields",
@@ -141,11 +134,10 @@ const Register = () => {
       return;
     }
 
-    // Mock successful registration
     setTimeout(() => {
       toast({
         title: "Account created!",
-        description: "Welcome to FurCare! You can now log in.",
+        description: `Welcome to FurCare! You are registered as a ${userType}.`,
       });
       setIsLoading(false);
       navigate('/login');
@@ -154,7 +146,6 @@ const Register = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12 bg-gradient-to-b from-coquette-50 to-coquette-100 relative overflow-hidden">
-      {/* Pet-themed animated background elements */}
       <div className="absolute inset-0 z-0 overflow-hidden paw-pattern opacity-40">
         <div className="absolute -top-20 -left-20 w-40 h-40 opacity-20">
           <PawPrint className="w-full h-full text-coquette-300 animate-float" />
@@ -237,6 +228,24 @@ const Register = () => {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
+                <Label>Select Your Role</Label>
+                <RadioGroup 
+                  value={userType} 
+                  onValueChange={(value) => setUserType(value as 'patient' | 'groomer')}
+                  className="flex space-x-4"
+                >
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="patient" id="radio-patient" />
+                    <Label htmlFor="radio-patient">Pet Owner</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="groomer" id="radio-groomer" />
+                    <Label htmlFor="radio-groomer">Groomer</Label>
+                  </div>
+                </RadioGroup>
+              </div>
+
+              <div className="space-y-2">
                 <Label htmlFor="name">Full Name</Label>
                 <div className="relative">
                   <Input
@@ -257,7 +266,7 @@ const Register = () => {
                   value={contactMethod} 
                   onValueChange={(value) => {
                     setContactMethod(value as 'email' | 'phone');
-                    setIsVerified(false); // Reset verification when changing contact method
+                    setIsVerified(false);
                   }}
                   className="flex space-x-4"
                 >
@@ -290,7 +299,7 @@ const Register = () => {
                       value={email}
                       onChange={(e) => {
                         setEmail(e.target.value);
-                        setIsVerified(false); // Reset verification when email changes
+                        setIsVerified(false);
                       }}
                       disabled={isVerified}
                       className={`pl-10 pr-24 ${
@@ -333,7 +342,7 @@ const Register = () => {
                       value={phone}
                       onChange={(e) => {
                         setPhone(e.target.value);
-                        setIsVerified(false); // Reset verification when phone changes
+                        setIsVerified(false);
                       }}
                       disabled={isVerified}
                       className={`pl-10 pr-24 ${

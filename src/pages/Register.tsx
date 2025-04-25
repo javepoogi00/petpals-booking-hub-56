@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -23,6 +24,7 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState<{[key: string]: string}>({});
   
   const [contactMethod, setContactMethod] = useState<'email' | 'phone'>('email');
   const [isVerified, setIsVerified] = useState(false);
@@ -40,6 +42,47 @@ const Register = () => {
   
   const isValidPhone = (phone: string) => {
     return /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(phone);
+  };
+
+  const validateForm = () => {
+    const newErrors: {[key: string]: string} = {};
+    
+    if (!name) newErrors.name = "Name is required";
+    
+    if (contactMethod === 'email') {
+      if (!email) {
+        newErrors.email = "Email is required";
+      } else if (!isValidEmail(email)) {
+        newErrors.email = "Please enter a valid email address";
+      }
+    }
+    
+    if (contactMethod === 'phone') {
+      if (!phone) {
+        newErrors.phone = "Phone number is required";
+      } else if (!isValidPhone(phone)) {
+        newErrors.phone = "Please enter a valid phone number";
+      }
+    }
+    
+    if (!password) {
+      newErrors.password = "Password is required";
+    } else if (password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters";
+    }
+    
+    if (!confirmPassword) {
+      newErrors.confirmPassword = "Please confirm your password";
+    } else if (password !== confirmPassword) {
+      newErrors.confirmPassword = "Passwords do not match";
+    }
+    
+    if (!isVerified) {
+      newErrors.verification = `Please verify your ${contactMethod === 'email' ? 'email address' : 'phone number'}`;
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSendVerification = () => {
@@ -63,6 +106,7 @@ const Register = () => {
 
     setIsVerifying(true);
     
+    // For demo purposes, generate a 6-digit code
     const generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
     setMockCode(generatedCode);
     
@@ -102,38 +146,24 @@ const Register = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Clear previous errors
+    setErrors({});
+    
+    // Validate form
+    if (!validateForm()) {
+      // Display a toast for form validation errors
+      toast({
+        title: "Form Validation Failed",
+        description: "Please correct the errors in the form",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setIsLoading(true);
 
-    if (!name || (contactMethod === 'email' && !email) || (contactMethod === 'phone' && !phone) || !password || !confirmPassword) {
-      toast({
-        title: "Missing Fields",
-        description: "Please fill in all required fields",
-        variant: "destructive",
-      });
-      setIsLoading(false);
-      return;
-    }
-
-    if (!isVerified) {
-      toast({
-        title: `${contactMethod === 'email' ? 'Email' : 'Phone'} Not Verified`,
-        description: `Please verify your ${contactMethod === 'email' ? 'email address' : 'phone number'} before registering`,
-        variant: "destructive",
-      });
-      setIsLoading(false);
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      toast({
-        title: "Password Mismatch",
-        description: "Passwords do not match",
-        variant: "destructive",
-      });
-      setIsLoading(false);
-      return;
-    }
-
+    // For demo purposes, simulate a successful registration
     setTimeout(() => {
       toast({
         title: "Account created!",
@@ -142,6 +172,36 @@ const Register = () => {
       setIsLoading(false);
       navigate('/login');
     }, 1500);
+    
+    // In a real implementation with Supabase, you would use:
+    /*
+    supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: name,
+          user_type: userType
+        }
+      }
+    })
+    .then(({ data, error }) => {
+      setIsLoading(false);
+      if (error) {
+        toast({
+          title: "Registration failed",
+          description: error.message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Account created!",
+          description: `Welcome to FurCare! You are registered as a ${userType}.`,
+        });
+        navigate('/login');
+      }
+    });
+    */
   };
 
   return (
@@ -228,21 +288,23 @@ const Register = () => {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label>Select Your Role</Label>
-                <RadioGroup 
-                  value={userType} 
-                  onValueChange={(value) => setUserType(value as 'patient' | 'groomer')}
-                  className="flex space-x-4"
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="patient" id="radio-patient" />
-                    <Label htmlFor="radio-patient">Pet Owner</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="groomer" id="radio-groomer" />
-                    <Label htmlFor="radio-groomer">Groomer</Label>
-                  </div>
-                </RadioGroup>
+                <Label className="text-base font-medium">Select Your Role</Label>
+                <div className="bg-coquette-50/70 p-4 rounded-lg border border-coquette-100">
+                  <RadioGroup 
+                    value={userType} 
+                    onValueChange={(value) => setUserType(value as 'patient' | 'groomer')}
+                    className="flex flex-col sm:flex-row sm:space-x-8 space-y-2 sm:space-y-0"
+                  >
+                    <div className="flex items-center space-x-2 bg-white/80 rounded-md p-3 transition-colors hover:bg-white cursor-pointer border border-transparent hover:border-coquette-200">
+                      <RadioGroupItem value="patient" id="radio-patient" className="text-coquette-600" />
+                      <Label htmlFor="radio-patient" className="cursor-pointer font-medium">Pet Owner</Label>
+                    </div>
+                    <div className="flex items-center space-x-2 bg-white/80 rounded-md p-3 transition-colors hover:bg-white cursor-pointer border border-transparent hover:border-coquette-200">
+                      <RadioGroupItem value="groomer" id="radio-groomer" className="text-coquette-600" />
+                      <Label htmlFor="radio-groomer" className="cursor-pointer font-medium">Groomer</Label>
+                    </div>
+                  </RadioGroup>
+                </div>
               </div>
 
               <div className="space-y-2">
@@ -254,10 +316,11 @@ const Register = () => {
                     placeholder="Your Name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="pl-10 border-coquette-200 focus-visible:ring-coquette-500"
+                    className={`pl-10 ${errors.name ? "border-red-300 focus-visible:ring-red-500" : "border-coquette-200 focus-visible:ring-coquette-500"}`}
                   />
                   <UserPlus className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-coquette-400" />
                 </div>
+                {errors.name && <p className="text-xs text-red-500 mt-1">{errors.name}</p>}
               </div>
 
               <div className="space-y-2">
@@ -271,11 +334,11 @@ const Register = () => {
                   className="flex space-x-4"
                 >
                   <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="email" id="radio-email" />
+                    <RadioGroupItem value="email" id="radio-email" className="text-coquette-600" />
                     <Label htmlFor="radio-email">Email</Label>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="phone" id="radio-phone" />
+                    <RadioGroupItem value="phone" id="radio-phone" className="text-coquette-600" />
                     <Label htmlFor="radio-phone">Phone</Label>
                   </div>
                 </RadioGroup>
@@ -305,7 +368,9 @@ const Register = () => {
                       className={`pl-10 pr-24 ${
                         isVerified 
                           ? "border-green-300 bg-green-50" 
-                          : "border-coquette-200 focus-visible:ring-coquette-500"
+                          : errors.email
+                            ? "border-red-300 focus-visible:ring-red-500"
+                            : "border-coquette-200 focus-visible:ring-coquette-500"
                       }`}
                     />
                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-coquette-400" />
@@ -321,6 +386,7 @@ const Register = () => {
                       </Button>
                     )}
                   </div>
+                  {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email}</p>}
                 </div>
               )}
 
@@ -348,7 +414,9 @@ const Register = () => {
                       className={`pl-10 pr-24 ${
                         isVerified 
                           ? "border-green-300 bg-green-50" 
-                          : "border-coquette-200 focus-visible:ring-coquette-500"
+                          : errors.phone
+                            ? "border-red-300 focus-visible:ring-red-500"
+                            : "border-coquette-200 focus-visible:ring-coquette-500"
                       }`}
                     />
                     <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-coquette-400" />
@@ -364,7 +432,15 @@ const Register = () => {
                       </Button>
                     )}
                   </div>
+                  {errors.phone && <p className="text-xs text-red-500 mt-1">{errors.phone}</p>}
                 </div>
+              )}
+
+              {errors.verification && (
+                <Alert variant="destructive" className="py-2">
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertDescription>{errors.verification}</AlertDescription>
+                </Alert>
               )}
 
               <div className="space-y-2">
@@ -376,7 +452,7 @@ const Register = () => {
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10 border-coquette-200 focus-visible:ring-coquette-500"
+                    className={`pl-10 ${errors.password ? "border-red-300 focus-visible:ring-red-500" : "border-coquette-200 focus-visible:ring-coquette-500"}`}
                   />
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-coquette-400" />
                   <button 
@@ -391,6 +467,7 @@ const Register = () => {
                     )}
                   </button>
                 </div>
+                {errors.password && <p className="text-xs text-red-500 mt-1">{errors.password}</p>}
               </div>
 
               <div className="space-y-2">
@@ -402,17 +479,18 @@ const Register = () => {
                     placeholder="••••••••"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="pl-10 border-coquette-200 focus-visible:ring-coquette-500"
+                    className={`pl-10 ${errors.confirmPassword ? "border-red-300 focus-visible:ring-red-500" : "border-coquette-200 focus-visible:ring-coquette-500"}`}
                   />
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-coquette-400" />
                 </div>
+                {errors.confirmPassword && <p className="text-xs text-red-500 mt-1">{errors.confirmPassword}</p>}
               </div>
 
               <div className="pt-2">
                 <Button 
                   type="submit" 
                   className="w-full font-display bg-coquette-500 hover:bg-coquette-600"
-                  disabled={isLoading || !isVerified}
+                  disabled={isLoading}
                 >
                   {isLoading ? 'Creating Account...' : 'Create Account'}
                   {!isLoading && <ArrowRight className="ml-2 h-4 w-4" />}
@@ -448,3 +526,4 @@ const Register = () => {
 };
 
 export default Register;
+

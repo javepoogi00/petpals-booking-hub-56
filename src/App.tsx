@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/sonner";
 // Layout components
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import DashboardSidebar from "@/components/layout/DashboardSidebar";
 
 // Pages
 import Index from "@/pages/Index";
@@ -21,25 +22,51 @@ import NotFound from "@/pages/NotFound";
 // CSS
 import "./App.css";
 
+// Layout wrapper for dashboard pages
+const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <>
+      <div className="flex min-h-screen">
+        <DashboardSidebar />
+        <div className="flex-1 overflow-auto">
+          {children}
+        </div>
+      </div>
+    </>
+  );
+};
+
+// Layout wrapper for public pages
+const PublicLayout = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <>
+      <Navbar />
+      <main className="flex-1">{children}</main>
+      <Footer />
+    </>
+  );
+};
+
 function App() {
   return (
     <Router>
-      <Navbar />
-      <main className="flex-1">
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/appointments" element={<Appointments />} />
-          <Route path="/appointments/new" element={<NewAppointment />} />
-          <Route path="/pets" element={<Pets />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/billing" element={<Billing />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </main>
-      <Footer />
+      <Routes>
+        {/* Public routes */}
+        <Route path="/" element={<PublicLayout><Index /></PublicLayout>} />
+        <Route path="/login" element={<PublicLayout><Login /></PublicLayout>} />
+        <Route path="/register" element={<PublicLayout><Register /></PublicLayout>} />
+        
+        {/* Dashboard routes */}
+        <Route path="/dashboard" element={<DashboardLayout><Dashboard /></DashboardLayout>} />
+        <Route path="/appointments" element={<DashboardLayout><Appointments /></DashboardLayout>} />
+        <Route path="/appointments/new" element={<DashboardLayout><NewAppointment /></DashboardLayout>} />
+        <Route path="/pets" element={<DashboardLayout><Pets /></DashboardLayout>} />
+        <Route path="/profile" element={<DashboardLayout><Profile /></DashboardLayout>} />
+        <Route path="/billing" element={<DashboardLayout><Billing /></DashboardLayout>} />
+        
+        {/* 404 route */}
+        <Route path="*" element={<PublicLayout><NotFound /></PublicLayout>} />
+      </Routes>
       <Toaster position="top-center" />
     </Router>
   );

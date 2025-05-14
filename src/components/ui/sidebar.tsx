@@ -55,8 +55,8 @@ export function Sidebar({ className }: SidebarProps) {
   ];
 
   return (
-    <div className={cn("flex h-screen flex-col bg-white border-r border-gray-200", className)}>
-      <div className="px-3 py-4 flex flex-col h-full">
+    <div className={cn("flex h-screen flex-col bg-pink-50", className)}>
+      <div className="px-4 py-4">
         <div className="mb-8 flex items-center px-2">
           <div className="flex items-center gap-2">
             <Avatar>
@@ -64,8 +64,8 @@ export function Sidebar({ className }: SidebarProps) {
               <AvatarFallback>U</AvatarFallback>
             </Avatar>
             <div>
-              <p className="text-sm font-medium">Emma Thompson</p>
-              <p className="text-xs text-muted-foreground">Pet Parent</p>
+              <p className="text-sm font-medium">Xanthei Iona Pilares</p>
+              <p className="text-xs text-coquette-600">Pet Parent</p>
             </div>
           </div>
         </div>
@@ -78,8 +78,8 @@ export function Sidebar({ className }: SidebarProps) {
               className={cn(
                 "w-full justify-start",
                 window.location.pathname === item.href ? 
-                "bg-coquette-50 text-coquette-700" : 
-                "hover:bg-muted"
+                "bg-pink-200 text-coquette-700" : 
+                "hover:bg-pink-100"
               )}
               onClick={() => navigate(item.href)}
             >
@@ -89,10 +89,11 @@ export function Sidebar({ className }: SidebarProps) {
           ))}
         </div>
         
-        <div className="mt-auto pb-4">
+        <div className="mt-auto pt-4">
           <Button
             variant="ghost"
             className="w-full justify-start text-red-500 hover:text-red-600 hover:bg-red-50"
+            onClick={() => navigate("/login")}
           >
             <LogOut className="mr-2 h-5 w-5" />
             Sign Out

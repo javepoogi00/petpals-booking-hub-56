@@ -10,7 +10,6 @@ import {
   User,
   Settings,
   LogOut,
-  ChevronLeft,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -31,7 +30,6 @@ interface SidebarProps {
 export function DashboardSidebar({ className, expanded = true }: SidebarProps) {
   const navigate = useNavigate();
   const location = useLocation();
-  const [isExpanded, setIsExpanded] = useState(expanded);
   const isMobile = useIsMobile();
   const isDesktop = !isMobile;
 
@@ -70,38 +68,25 @@ export function DashboardSidebar({ className, expanded = true }: SidebarProps) {
 
   const SidebarContent = () => (
     <div className={cn(
-      "flex h-full flex-col border-r text-coquette-900 bg-coquette-50", 
-      isExpanded ? "w-64" : "w-20",
+      "flex h-full flex-col text-coquette-900 bg-pink-50",
       className
     )}>
-      <div className="p-4 flex items-center justify-between">
-        <Logo size="sm" showText={isExpanded} linkTo="/" className="text-coquette-700" />
-        {isDesktop && (
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            className="p-0 h-8 w-8 hover:bg-coquette-100 text-coquette-700"
-            onClick={() => setIsExpanded(!isExpanded)}
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
-        )}
+      <div className="p-4 flex items-center">
+        <Logo size="sm" showText={true} linkTo="/" className="text-coquette-700" />
       </div>
       
-      {isExpanded && (
-        <div className="px-4 py-3 mb-4">
-          <div className="flex items-center gap-3">
-            <Avatar>
-              <AvatarImage src="/lovable-uploads/c999e0e9-f852-4128-a4c0-58740869d932.png" alt="User" />
-              <AvatarFallback>XP</AvatarFallback>
-            </Avatar>
-            <div>
-              <p className="text-sm font-medium">Xanthei Iona Pilares</p>
-              <p className="text-xs text-coquette-600">Pet Parent</p>
-            </div>
+      <div className="px-4 py-3 mb-4">
+        <div className="flex items-center gap-3">
+          <Avatar>
+            <AvatarImage src="/lovable-uploads/c999e0e9-f852-4128-a4c0-58740869d932.png" alt="User" />
+            <AvatarFallback>XP</AvatarFallback>
+          </Avatar>
+          <div>
+            <p className="text-sm font-medium">Xanthei Iona Pilares</p>
+            <p className="text-xs text-coquette-600">Pet Parent</p>
           </div>
         </div>
-      )}
+      </div>
       
       <div className="flex-1">
         {sidebarItems.map((item) => {
@@ -112,15 +97,14 @@ export function DashboardSidebar({ className, expanded = true }: SidebarProps) {
               variant="ghost"
               className={cn(
                 "w-full flex items-center justify-start rounded-none h-12 px-4",
-                !isExpanded && "px-2 justify-center",
                 isActive 
-                  ? "bg-coquette-200 text-coquette-700 hover:bg-coquette-200" 
-                  : "hover:bg-coquette-100 text-coquette-900"
+                  ? "bg-pink-200 text-coquette-700" 
+                  : "hover:bg-pink-100 text-coquette-900"
               )}
               onClick={() => navigate(item.url)}
             >
-              <div className={cn("mr-3", !isExpanded && "mr-0")}>{item.icon}</div>
-              {isExpanded && <span>{item.title}</span>}
+              <div className="mr-3">{item.icon}</div>
+              <span>{item.title}</span>
             </Button>
           );
         })}
@@ -129,13 +113,11 @@ export function DashboardSidebar({ className, expanded = true }: SidebarProps) {
       <div className="p-4">
         <Button
           variant="ghost"
-          className={cn(
-            "w-full flex items-center justify-start text-red-500 hover:text-red-600 hover:bg-red-50",
-            !isExpanded && "px-2 justify-center"
-          )}
+          className="w-full flex items-center justify-start text-red-500 hover:text-red-600 hover:bg-red-50"
+          onClick={() => navigate("/login")}
         >
-          <LogOut className={cn("mr-3", !isExpanded && "mr-0")} />
-          {isExpanded && <span>Sign Out</span>}
+          <LogOut className="mr-3" />
+          <span>Sign Out</span>
         </Button>
       </div>
     </div>

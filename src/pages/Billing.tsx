@@ -1,19 +1,12 @@
-
 import React, { useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { CreditCard, CheckCircle, AlertCircle, ArrowLeft } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { CreditCard, CheckCircle, AlertCircle } from "lucide-react";
 
 export default function Billing() {
   const [activeTab, setActiveTab] = useState("payment-methods");
   const [showGcashQR, setShowGcashQR] = useState(false);
-  const navigate = useNavigate();
-
-  const handleBackClick = () => {
-    navigate(-1);
-  };
 
   const toggleGcashQR = () => {
     setShowGcashQR(!showGcashQR);
@@ -21,17 +14,7 @@ export default function Billing() {
 
   return (
     <div className="container mx-auto p-6">
-      <div className="flex items-center mb-6">
-        <Button 
-          variant="ghost" 
-          size="sm" 
-          onClick={handleBackClick} 
-          className="mr-2"
-        >
-          <ArrowLeft className="h-5 w-5 text-coquette-600" />
-        </Button>
-        <h1 className="text-3xl font-bold text-coquette-800">Billing</h1>
-      </div>
+      <h1 className="text-3xl font-bold mb-6 text-coquette-800">Billing</h1>
       
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList className="mb-6">

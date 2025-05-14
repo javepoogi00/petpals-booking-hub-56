@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -11,7 +12,6 @@ import {
   LogOut,
   ChevronLeft,
   ChevronRight,
-  ArrowLeft
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -35,10 +35,6 @@ export function DashboardSidebar({ className, expanded = true }: SidebarProps) {
   const [isExpanded, setIsExpanded] = useState(expanded);
   const isMobile = useIsMobile();
   const isDesktop = !isMobile;
-
-  const handleBack = () => {
-    navigate(-1);
-  };
 
   const sidebarItems = [
     { 
@@ -96,16 +92,6 @@ export function DashboardSidebar({ className, expanded = true }: SidebarProps) {
             </Button>
           )}
         </div>
-        
-        <Button
-          variant="ghost"
-          size="sm"
-          className="mb-4 w-full flex items-center justify-start bg-coquette-100 text-coquette-700 hover:bg-coquette-200"
-          onClick={handleBack}
-        >
-          <ArrowLeft className="h-4 w-4 mr-2" />
-          {isExpanded && <span>Back</span>}
-        </Button>
         
         {isExpanded && (
           <div className="mb-8 px-2">

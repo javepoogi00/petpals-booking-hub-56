@@ -54,7 +54,7 @@ export default function Billing() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center">
-                  <img src="https://www.gcash.com/wp-content/uploads/2021/07/GCash_Logo.png" alt="GCash" className="h-6 mr-2" />
+                  <img src="/lovable-uploads/394a80aa-b49e-484d-ae6c-4906107eb984.png" alt="GCash" className="h-6 mr-2" />
                   GCash
                 </CardTitle>
                 <CardDescription>Pay using your GCash account</CardDescription>
@@ -87,7 +87,7 @@ export default function Billing() {
                     </div>
                   ) : (
                     <div className="flex justify-center">
-                      <img src="https://www.gcash.com/wp-content/uploads/2021/07/GCash_Logo.png" alt="GCash" className="h-10" />
+                      <img src="/lovable-uploads/394a80aa-b49e-484d-ae6c-4906107eb984.png" alt="GCash" className="h-10" />
                     </div>
                   )}
                 </div>
